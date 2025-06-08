@@ -68,11 +68,12 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				taara: {
-					cream: 'hsl(var(--taara-cream))',
-					beige: 'hsl(var(--taara-beige))',
-					wood: 'hsl(var(--taara-wood))',
-					'dark-wood': 'hsl(var(--taara-dark-wood))',
+					yellow: 'hsl(var(--taara-yellow))',
+					golden: 'hsl(var(--taara-golden))',
+					brown: 'hsl(var(--taara-brown))',
+					'dark-brown': 'hsl(var(--taara-dark-brown))',
 					charcoal: 'hsl(var(--taara-charcoal))',
+					cream: 'hsl(var(--taara-cream))',
 					'warm-white': 'hsl(var(--taara-warm-white))',
 					accent: 'hsl(var(--taara-accent))'
 				}

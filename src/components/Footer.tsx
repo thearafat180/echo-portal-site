@@ -9,8 +9,15 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Brand Info */}
           <div>
-            <div className="text-3xl font-display font-bold mb-4 text-taara-accent">
-              TAARA Craft
+            <div className="flex items-center space-x-3 mb-4">
+              <img 
+                src="/lovable-uploads/d8de54f9-1405-4e3f-b82a-f24a4d0f5b35.png" 
+                alt="TAARA Craft Logo" 
+                className="w-8 h-8"
+              />
+              <div className="text-3xl font-display font-bold text-taara-yellow">
+                TAARA Craft
+              </div>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Handcrafted wooden clocks that bring timeless beauty and artistry to your space. 
@@ -32,26 +39,26 @@ const Footer = () => {
 
           {/* TAARA Values */}
           <div>
-            <h3 className="font-bold text-lg mb-6 text-taara-accent">Our Values</h3>
+            <h3 className="font-bold text-lg mb-6 text-taara-yellow">Our Values</h3>
             <ul className="space-y-2 text-gray-300">
               <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-taara-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-taara-yellow rounded-full"></span>
                 <strong>T</strong>irelessness
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-taara-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-taara-yellow rounded-full"></span>
                 <strong>A</strong>rtistry
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-taara-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-taara-yellow rounded-full"></span>
                 <strong>A</strong>uthenticity
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-taara-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-taara-yellow rounded-full"></span>
                 <strong>R</strong>eliability
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-taara-accent rounded-full"></span>
+                <span className="w-2 h-2 bg-taara-yellow rounded-full"></span>
                 <strong>A</strong>esthetic
               </li>
             </ul>
@@ -59,13 +66,13 @@ const Footer = () => {
 
           {/* Connect */}
           <div>
-            <h3 className="font-bold text-lg mb-6 text-taara-accent">Connect With Us</h3>
+            <h3 className="font-bold text-lg mb-6 text-taara-yellow">Connect With Us</h3>
             <div className="space-y-4">
               <a
                 href="https://facebook.com/taaracraft"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 text-gray-300 hover:text-taara-accent transition-colors"
+                className="flex items-center gap-3 text-gray-300 hover:text-taara-yellow transition-colors"
               >
                 <Facebook size={20} />
                 <span>Follow us on Facebook</span>
@@ -76,7 +83,7 @@ const Footer = () => {
                   Stay updated with our latest creations and behind-the-scenes content.
                 </p>
                 <button 
-                  className="bg-taara-accent hover:bg-taara-accent/90 px-6 py-3 rounded-full font-semibold transition-colors text-taara-charcoal"
+                  className="bg-taara-yellow hover:bg-taara-golden px-6 py-3 rounded-full font-semibold transition-colors text-taara-charcoal"
                   onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
                 >
                   Order Now
@@ -100,7 +107,7 @@ const Footer = () => {
                 href="https://facebook.com/taaracraft"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-taara-accent hover:text-taara-charcoal transition-all"
+                className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-taara-yellow hover:text-taara-charcoal transition-all"
                 aria-label="Facebook"
               >
                 <Facebook size={20} />

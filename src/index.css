@@ -5,87 +5,88 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
 
-/* Design system for TAARA Craft - warm, neutral wooden aesthetic */
+/* Design system for TAARA Craft - yellow and brown compass-inspired theme */
 
 @layer base {
   :root {
-    --background: 35 20% 98%;
-    --foreground: 25 25% 15%;
+    --background: 45 25% 97%;
+    --foreground: 30 40% 25%;
 
-    --card: 35 15% 96%;
-    --card-foreground: 25 25% 15%;
+    --card: 45 20% 95%;
+    --card-foreground: 30 40% 25%;
 
-    --popover: 35 15% 96%;
-    --popover-foreground: 25 25% 15%;
+    --popover: 45 20% 95%;
+    --popover-foreground: 30 40% 25%;
 
-    --primary: 25 25% 15%;
-    --primary-foreground: 35 20% 98%;
+    --primary: 30 40% 25%;
+    --primary-foreground: 45 25% 97%;
 
-    --secondary: 30 15% 92%;
-    --secondary-foreground: 25 25% 15%;
+    --secondary: 50 30% 88%;
+    --secondary-foreground: 30 40% 25%;
 
-    --muted: 30 15% 92%;
-    --muted-foreground: 25 15% 45%;
+    --muted: 50 30% 88%;
+    --muted-foreground: 30 25% 45%;
 
-    --accent: 30 15% 92%;
-    --accent-foreground: 25 25% 15%;
+    --accent: 50 30% 88%;
+    --accent-foreground: 30 40% 25%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 30 20% 88%;
-    --input: 30 20% 88%;
-    --ring: 25 25% 15%;
+    --border: 45 30% 85%;
+    --input: 45 30% 85%;
+    --ring: 30 40% 25%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 35 20% 98%;
-    --sidebar-foreground: 25 25% 15%;
-    --sidebar-primary: 25 25% 15%;
-    --sidebar-primary-foreground: 35 20% 98%;
-    --sidebar-accent: 30 15% 92%;
-    --sidebar-accent-foreground: 25 25% 15%;
-    --sidebar-border: 30 20% 88%;
-    --sidebar-ring: 25 25% 15%;
+    --sidebar-background: 45 25% 97%;
+    --sidebar-foreground: 30 40% 25%;
+    --sidebar-primary: 30 40% 25%;
+    --sidebar-primary-foreground: 45 25% 97%;
+    --sidebar-accent: 50 30% 88%;
+    --sidebar-accent-foreground: 30 40% 25%;
+    --sidebar-border: 45 30% 85%;
+    --sidebar-ring: 30 40% 25%;
 
-    /* TAARA Craft custom colors */
-    --taara-cream: 45 35% 95%;
-    --taara-beige: 35 25% 85%;
-    --taara-wood: 25 30% 65%;
-    --taara-dark-wood: 20 25% 35%;
-    --taara-charcoal: 25 25% 15%;
-    --taara-warm-white: 40 20% 98%;
-    --taara-accent: 30 45% 75%;
+    /* TAARA Craft compass-inspired colors */
+    --taara-yellow: 51 100% 65%;
+    --taara-golden: 45 85% 75%;
+    --taara-brown: 30 45% 40%;
+    --taara-dark-brown: 25 50% 25%;
+    --taara-charcoal: 30 40% 15%;
+    --taara-cream: 50 40% 95%;
+    --taara-warm-white: 48 25% 98%;
+    --taara-accent: 45 85% 75%;
   }
 
   .dark {
-    --background: 25 25% 8%;
-    --foreground: 35 20% 95%;
-    --card: 25 25% 10%;
-    --card-foreground: 35 20% 95%;
-    --popover: 25 25% 10%;
-    --popover-foreground: 35 20% 95%;
-    --primary: 35 20% 95%;
-    --primary-foreground: 25 25% 8%;
-    --secondary: 25 15% 15%;
-    --secondary-foreground: 35 20% 95%;
-    --muted: 25 15% 15%;
-    --muted-foreground: 35 10% 65%;
-    --accent: 25 15% 15%;
-    --accent-foreground: 35 20% 95%;
+    --background: 30 40% 8%;
+    --foreground: 45 25% 95%;
+    --card: 30 40% 10%;
+    --card-foreground: 45 25% 95%;
+    --popover: 30 40% 10%;
+    --popover-foreground: 45 25% 95%;
+    --primary: 45 25% 95%;
+    --primary-foreground: 30 40% 8%;
+    --secondary: 30 25% 15%;
+    --secondary-foreground: 45 25% 95%;
+    --muted: 30 25% 15%;
+    --muted-foreground: 45 15% 65%;
+    --accent: 30 25% 15%;
+    --accent-foreground: 45 25% 95%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 25 15% 18%;
-    --input: 25 15% 18%;
-    --ring: 35 20% 95%;
-    --sidebar-background: 25 25% 8%;
-    --sidebar-foreground: 35 20% 95%;
-    --sidebar-primary: 35 20% 95%;
-    --sidebar-primary-foreground: 25 25% 8%;
-    --sidebar-accent: 25 15% 15%;
-    --sidebar-accent-foreground: 35 20% 95%;
-    --sidebar-border: 25 15% 18%;
-    --sidebar-ring: 35 20% 95%;
+    --border: 30 25% 18%;
+    --input: 30 25% 18%;
+    --ring: 45 25% 95%;
+    --sidebar-background: 30 40% 8%;
+    --sidebar-foreground: 45 25% 95%;
+    --sidebar-primary: 45 25% 95%;
+    --sidebar-primary-foreground: 30 40% 8%;
+    --sidebar-accent: 30 25% 15%;
+    --sidebar-accent-foreground: 45 25% 95%;
+    --sidebar-border: 30 25% 18%;
+    --sidebar-ring: 45 25% 95%;
   }
 }
 
@@ -152,6 +153,15 @@
   }
 }
 
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -168,20 +178,26 @@
   animation: float 3s ease-in-out infinite;
 }
 
+.animate-slide-left {
+  animation: slideLeft 20s linear infinite;
+}
+
 /* Utility classes */
-.text-taara-cream { color: hsl(var(--taara-cream)); }
-.text-taara-beige { color: hsl(var(--taara-beige)); }
-.text-taara-wood { color: hsl(var(--taara-wood)); }
-.text-taara-dark-wood { color: hsl(var(--taara-dark-wood)); }
+.text-taara-yellow { color: hsl(var(--taara-yellow)); }
+.text-taara-golden { color: hsl(var(--taara-golden)); }
+.text-taara-brown { color: hsl(var(--taara-brown)); }
+.text-taara-dark-brown { color: hsl(var(--taara-dark-brown)); }
 .text-taara-charcoal { color: hsl(var(--taara-charcoal)); }
 
-.bg-taara-cream { background-color: hsl(var(--taara-cream)); }
-.bg-taara-beige { background-color: hsl(var(--taara-beige)); }
-.bg-taara-wood { background-color: hsl(var(--taara-wood)); }
-.bg-taara-dark-wood { background-color: hsl(var(--taara-dark-wood)); }
+.bg-taara-yellow { background-color: hsl(var(--taara-yellow)); }
+.bg-taara-golden { background-color: hsl(var(--taara-golden)); }
+.bg-taara-brown { background-color: hsl(var(--taara-brown)); }
+.bg-taara-dark-brown { background-color: hsl(var(--taara-dark-brown)); }
 .bg-taara-charcoal { background-color: hsl(var(--taara-charcoal)); }
+.bg-taara-cream { background-color: hsl(var(--taara-cream)); }
 .bg-taara-warm-white { background-color: hsl(var(--taara-warm-white)); }
 .bg-taara-accent { background-color: hsl(var(--taara-accent)); }
 
-.border-taara-beige { border-color: hsl(var(--taara-beige)); }
-.border-taara-wood { border-color: hsl(var(--taara-wood)); }
+.border-taara-yellow { border-color: hsl(var(--taara-yellow)); }
+.border-taara-golden { border-color: hsl(var(--taara-golden)); }
+.border-taara-brown { border-color: hsl(var(--taara-brown)); }
