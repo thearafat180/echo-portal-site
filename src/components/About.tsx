@@ -1,98 +1,133 @@
 
-import { CheckCircle, Users, Zap, Award } from "lucide-react";
+import { Heart, Award, Shield, Palette } from "lucide-react";
 
 const About = () => {
-  const features = [
+  const taaraValues = [
     {
-      icon: <Zap className="w-6 h-6" />,
-      title: "Lightning Fast",
-      description: "Optimized for performance and speed"
+      letter: "T",
+      word: "Tirelessness",
+      description: "Unwavering dedication to perfection",
+      icon: <Heart className="w-6 h-6" />
     },
     {
-      icon: <Users className="w-6 h-6" />,
-      title: "Client Focused",
-      description: "Tailored solutions for every need"
+      letter: "A",
+      word: "Artistry",
+      description: "Masterful craftsmanship in every piece",
+      icon: <Palette className="w-6 h-6" />
     },
     {
-      icon: <Award className="w-6 h-6" />,
-      title: "Award Winning",
-      description: "Recognized design excellence"
+      letter: "A",
+      word: "Authenticity", 
+      description: "Genuine handmade wooden creations",
+      icon: <Award className="w-6 h-6" />
+    },
+    {
+      letter: "R",
+      word: "Reliability",
+      description: "Consistent quality you can trust",
+      icon: <Shield className="w-6 h-6" />
+    },
+    {
+      letter: "A",
+      word: "Aesthetic",
+      description: "Beautiful designs that inspire",
+      icon: <Palette className="w-6 h-6" />
     }
   ];
 
-  const achievements = [
-    "5+ Years of Experience",
-    "Professional Design Standards",
-    "Mobile-First Approach",
-    "SEO Optimized",
-    "24/7 Support",
-    "Custom Solutions"
-  ];
-
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 bg-taara-cream">
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left Content */}
-          <div>
-            <div className="inline-flex items-center px-4 py-2 bg-portfolio-accent/10 text-portfolio-accent rounded-full text-sm font-medium mb-6">
-              About Portray
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 bg-taara-wood/10 text-taara-dark-wood rounded-full text-sm font-medium mb-6">
+              About TAARA Craft
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-portfolio-dark mb-6 leading-tight">
-              Crafting Digital Excellence Since 2019
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-taara-charcoal mb-6">
+              Where Passion Meets Craftsmanship
             </h2>
             
-            <p className="text-lg text-portfolio-text-light mb-8 leading-relaxed">
-              We specialize in creating stunning digital portfolios that tell your unique story. 
-              Our team combines creative design with cutting-edge technology to deliver 
-              exceptional results that exceed expectations.
+            <p className="text-xl text-taara-dark-wood/80 max-w-3xl mx-auto leading-relaxed">
+              Born in the heart of Bangladesh, TAARA Craft represents the perfect harmony 
+              between traditional woodworking techniques and contemporary design.
             </p>
-
-            {/* Features Grid */}
-            <div className="grid sm:grid-cols-3 gap-6 mb-8">
-              {features.map((feature, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-12 h-12 bg-portfolio-accent/10 rounded-full flex items-center justify-center text-portfolio-accent mx-auto mb-3">
-                    {feature.icon}
-                  </div>
-                  <h3 className="font-semibold text-portfolio-dark mb-2">{feature.title}</h3>
-                  <p className="text-sm text-portfolio-text-light">{feature.description}</p>
-                </div>
-              ))}
-            </div>
           </div>
 
-          {/* Right Content */}
-          <div>
-            <div className="bg-gradient-to-br from-portfolio-accent/5 to-portfolio-accent/10 rounded-2xl p-8">
-              <h3 className="text-2xl font-display font-bold text-portfolio-dark mb-6">
-                Why Choose Us?
+          {/* TAARA Acronym */}
+          <div className="grid md:grid-cols-5 gap-6 mb-16">
+            {taaraValues.map((value, index) => (
+              <div
+                key={index}
+                className="bg-taara-warm-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="w-16 h-16 bg-taara-wood/10 rounded-full flex items-center justify-center text-taara-wood mx-auto mb-4">
+                  {value.icon}
+                </div>
+                
+                <div className="text-3xl font-display font-bold text-taara-wood mb-2">
+                  {value.letter}
+                </div>
+                
+                <h3 className="font-bold text-taara-charcoal mb-2">
+                  {value.word}
+                </h3>
+                
+                <p className="text-sm text-taara-dark-wood/70">
+                  {value.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Story Section */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="animate-slide-in-left">
+              <h3 className="text-3xl font-display font-bold text-taara-charcoal mb-6">
+                Our Story
               </h3>
               
-              <div className="grid gap-4">
-                {achievements.map((achievement, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-portfolio-accent flex-shrink-0" />
-                    <span className="text-portfolio-text">{achievement}</span>
-                  </div>
-                ))}
-              </div>
+              <p className="text-lg text-taara-dark-wood/80 mb-6 leading-relaxed">
+                Every piece we create carries the soul of Bangladesh's rich woodworking heritage. 
+                Our skilled artisans pour their heart into crafting timepieces that are not just 
+                functional, but works of art that tell stories.
+              </p>
+              
+              <p className="text-lg text-taara-dark-wood/80 mb-8 leading-relaxed">
+                From selecting the finest woods to applying the final finish, each step is 
+                guided by passion, precision, and an unwavering commitment to excellence. 
+                We believe that true craftsmanship cannot be rushed—it must be nurtured with time and care.
+              </p>
 
-              <div className="mt-8 p-6 bg-white rounded-xl shadow-sm">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-portfolio-accent rounded-full flex items-center justify-center text-white font-bold text-lg">
-                    P
-                  </div>
-                  <div>
-                    <div className="font-semibold text-portfolio-dark">Portfolio Team</div>
-                    <div className="text-sm text-portfolio-text-light">Creative Directors</div>
-                  </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-taara-wood rounded-full flex items-center justify-center text-white font-bold">
+                  T
                 </div>
-                <p className="text-portfolio-text italic">
-                  "Excellence is not a skill, it's an attitude. We bring passion and 
-                  precision to every project we undertake."
-                </p>
+                <div>
+                  <div className="font-semibold text-taara-charcoal">TAARA Craft Team</div>
+                  <div className="text-sm text-taara-dark-wood/70">Artisans from Bangladesh</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative animate-fade-in">
+              <div className="bg-taara-wood/5 rounded-3xl p-8">
+                <img
+                  src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop"
+                  alt="Handcrafted wooden clock"
+                  className="w-full h-80 object-cover rounded-2xl shadow-lg"
+                />
+                
+                <div className="mt-6 text-center">
+                  <div className="text-2xl font-display font-bold text-taara-charcoal mb-2">
+                    "Every tick tells a story"
+                  </div>
+                  <p className="text-taara-dark-wood/70 italic">
+                    - Our Philosophy
+                  </p>
+                </div>
               </div>
             </div>
           </div>

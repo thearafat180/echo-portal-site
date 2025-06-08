@@ -9,18 +9,18 @@ const Header = () => {
   const navItems = [
     { label: "Home", href: "#home" },
     { label: "About", href: "#about" },
-    { label: "Portfolio", href: "#portfolio" },
-    { label: "Services", href: "#services" },
+    { label: "Products", href: "#products" },
+    { label: "Why Choose Us", href: "#why-choose" },
     { label: "Contact", href: "#contact" },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-taara-warm-white/90 backdrop-blur-md border-b border-taara-beige">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-display font-bold text-portfolio-dark">
-            Portray
+          <div className="text-2xl font-display font-bold text-taara-charcoal">
+            TAARA Craft
           </div>
 
           {/* Desktop Navigation */}
@@ -29,7 +29,7 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-portfolio-text hover:text-portfolio-accent transition-colors duration-300 font-medium"
+                className="text-taara-dark-wood hover:text-taara-wood transition-colors duration-300 font-medium"
               >
                 {item.label}
               </a>
@@ -38,8 +38,8 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="bg-portfolio-accent hover:bg-portfolio-accent/90 text-white">
-              Get Started
+            <Button className="bg-taara-wood hover:bg-taara-dark-wood text-white">
+              Order on Facebook
             </Button>
           </div>
 
@@ -54,20 +54,20 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-gray-100">
+          <nav className="md:hidden mt-4 pb-4 border-t border-taara-beige">
             <div className="flex flex-col space-y-3 pt-4">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-portfolio-text hover:text-portfolio-accent transition-colors duration-300 font-medium py-2"
+                  className="text-taara-dark-wood hover:text-taara-wood transition-colors duration-300 font-medium py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
                 </a>
               ))}
-              <Button className="bg-portfolio-accent hover:bg-portfolio-accent/90 text-white mt-4 w-full">
-                Get Started
+              <Button className="bg-taara-wood hover:bg-taara-dark-wood text-white mt-4 w-full">
+                Order on Facebook
               </Button>
             </div>
           </nav>

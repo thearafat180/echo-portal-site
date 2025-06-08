@@ -21,7 +21,7 @@ export default {
 		extend: {
 			fontFamily: {
 				'inter': ['Inter', 'sans-serif'],
-				'display': ['Playfair Display', 'serif'],
+				'display': ['Crimson Text', 'serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -67,12 +67,14 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				portfolio: {
-					dark: 'hsl(var(--portfolio-dark))',
-					light: 'hsl(var(--portfolio-light))',
-					accent: 'hsl(var(--portfolio-accent))',
-					text: 'hsl(var(--portfolio-text))',
-					'text-light': 'hsl(var(--portfolio-text-light))'
+				taara: {
+					cream: 'hsl(var(--taara-cream))',
+					beige: 'hsl(var(--taara-beige))',
+					wood: 'hsl(var(--taara-wood))',
+					'dark-wood': 'hsl(var(--taara-dark-wood))',
+					charcoal: 'hsl(var(--taara-charcoal))',
+					'warm-white': 'hsl(var(--taara-warm-white))',
+					accent: 'hsl(var(--taara-accent))'
 				}
 			},
 			borderRadius: {

@@ -1,178 +1,111 @@
 
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { MessageCircle, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 
 const Contact = () => {
-  const contactInfo = [
-    {
-      icon: <Mail className="w-6 h-6" />,
-      label: "Email",
-      value: "hello@portray.pk",
-      href: "mailto:hello@portray.pk"
-    },
-    {
-      icon: <Phone className="w-6 h-6" />,
-      label: "Phone",
-      value: "+92 300 1234567",
-      href: "tel:+923001234567"
-    },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      label: "Location",
-      value: "Lahore, Pakistan",
-      href: "#"
-    }
-  ];
-
   return (
-    <section id="contact" className="py-20 bg-portfolio-light">
+    <section id="contact" className="py-20 bg-taara-warm-white">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-portfolio-accent/10 text-portfolio-accent rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 bg-taara-wood/10 text-taara-dark-wood rounded-full text-sm font-medium mb-6">
             Get In Touch
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-portfolio-dark mb-6">
-            Let's Work Together
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-taara-charcoal mb-6">
+            Let's Create Together
           </h2>
           
-          <p className="text-xl text-portfolio-text-light max-w-3xl mx-auto">
-            Ready to bring your vision to life? Let's discuss your project and create something amazing together.
+          <p className="text-xl text-taara-dark-wood/80 max-w-3xl mx-auto">
+            Ready to bring a piece of handcrafted artistry into your space? We'd love to hear from you.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact Form */}
-          <div className="bg-white rounded-2xl p-8 shadow-sm">
-            <h3 className="text-2xl font-bold text-portfolio-dark mb-6">Send us a message</h3>
-            
-            <form className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-portfolio-text mb-2">
-                    First Name
-                  </label>
-                  <Input 
-                    placeholder="Your first name"
-                    className="border-gray-200 focus:border-portfolio-accent"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-portfolio-text mb-2">
-                    Last Name
-                  </label>
-                  <Input 
-                    placeholder="Your last name"
-                    className="border-gray-200 focus:border-portfolio-accent"
-                  />
-                </div>
+        <div className="max-w-4xl mx-auto">
+          {/* Contact Options */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            {/* Facebook */}
+            <div className="bg-taara-cream rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="w-16 h-16 bg-taara-wood/10 rounded-full flex items-center justify-center text-taara-wood mx-auto mb-6">
+                <MessageCircle className="w-8 h-8" />
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-portfolio-text mb-2">
-                  Email Address
-                </label>
-                <Input 
-                  type="email"
-                  placeholder="your.email@example.com"
-                  className="border-gray-200 focus:border-portfolio-accent"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-portfolio-text mb-2">
-                  Project Type
-                </label>
-                <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-portfolio-accent focus:border-transparent">
-                  <option>Select a service</option>
-                  <option>Web Development</option>
-                  <option>UI/UX Design</option>
-                  <option>Mobile Development</option>
-                  <option>SEO Optimization</option>
-                  <option>Brand Identity</option>
-                  <option>Digital Strategy</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-portfolio-text mb-2">
-                  Project Budget
-                </label>
-                <select className="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-portfolio-accent focus:border-transparent">
-                  <option>Select budget range</option>
-                  <option>$5,000 - $10,000</option>
-                  <option>$10,000 - $25,000</option>
-                  <option>$25,000 - $50,000</option>
-                  <option>$50,000+</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-portfolio-text mb-2">
-                  Message
-                </label>
-                <Textarea 
-                  placeholder="Tell us about your project..."
-                  className="border-gray-200 focus:border-portfolio-accent min-h-[120px]"
-                />
-              </div>
-
-              <Button className="w-full bg-portfolio-accent hover:bg-portfolio-accent/90 text-white py-3">
-                <Send className="mr-2" size={20} />
-                Send Message
+              <h3 className="text-xl font-display font-bold text-taara-charcoal mb-4">
+                Message Us
+              </h3>
+              <p className="text-taara-dark-wood/80 mb-6">
+                Connect with us on Facebook for quick responses and to see our latest creations.
+              </p>
+              <Button 
+                className="w-full bg-taara-wood hover:bg-taara-dark-wood text-white"
+                onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
+              >
+                Message on Facebook
               </Button>
-            </form>
+            </div>
+
+            {/* Email */}
+            <div className="bg-taara-cream rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="w-16 h-16 bg-taara-wood/10 rounded-full flex items-center justify-center text-taara-wood mx-auto mb-6">
+                <Mail className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-display font-bold text-taara-charcoal mb-4">
+                Email Us
+              </h3>
+              <p className="text-taara-dark-wood/80 mb-6">
+                Send us detailed inquiries about custom orders or general questions.
+              </p>
+              <Button 
+                variant="outline" 
+                className="w-full border-taara-wood text-taara-wood hover:bg-taara-wood hover:text-white"
+                onClick={() => window.location.href = 'mailto:info@taaracraft.com'}
+              >
+                Send Email
+              </Button>
+            </div>
+
+            {/* Location */}
+            <div className="bg-taara-cream rounded-2xl p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="w-16 h-16 bg-taara-wood/10 rounded-full flex items-center justify-center text-taara-wood mx-auto mb-6">
+                <MapPin className="w-8 h-8" />
+              </div>
+              <h3 className="text-xl font-display font-bold text-taara-charcoal mb-4">
+                Our Workshop
+              </h3>
+              <p className="text-taara-dark-wood/80 mb-6">
+                Located in the heart of Bangladesh, where tradition meets innovation.
+              </p>
+              <div className="text-taara-dark-wood font-medium">
+                Bangladesh
+              </div>
+            </div>
           </div>
 
-          {/* Contact Information */}
-          <div>
-            <div className="mb-8">
-              <h3 className="text-2xl font-bold text-portfolio-dark mb-4">Get in touch</h3>
-              <p className="text-portfolio-text-light leading-relaxed">
-                We'd love to hear from you. Choose the most convenient way to contact us, 
-                and we'll get back to you as soon as possible.
-              </p>
-            </div>
-
-            {/* Contact Cards */}
-            <div className="space-y-4 mb-8">
-              {contactInfo.map((info, index) => (
-                <a
-                  key={index}
-                  href={info.href}
-                  className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-md transition-shadow group"
-                >
-                  <div className="w-12 h-12 bg-portfolio-accent/10 rounded-lg flex items-center justify-center text-portfolio-accent group-hover:bg-portfolio-accent group-hover:text-white transition-all">
-                    {info.icon}
-                  </div>
-                  <div>
-                    <div className="text-sm text-portfolio-text-light">{info.label}</div>
-                    <div className="font-semibold text-portfolio-dark">{info.value}</div>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {/* Office Hours */}
-            <div className="bg-white rounded-xl p-6">
-              <h4 className="font-bold text-portfolio-dark mb-4">Office Hours</h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-portfolio-text-light">Monday - Friday</span>
-                  <span className="text-portfolio-dark font-medium">9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-portfolio-text-light">Saturday</span>
-                  <span className="text-portfolio-dark font-medium">10:00 AM - 4:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-portfolio-text-light">Sunday</span>
-                  <span className="text-portfolio-dark font-medium">Closed</span>
-                </div>
-              </div>
+          {/* Call to Action */}
+          <div className="bg-gradient-to-r from-taara-wood to-taara-dark-wood rounded-3xl p-8 md:p-12 text-center text-white">
+            <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+              Ready to Order?
+            </h3>
+            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+              Browse our collection, ask about custom pieces, or simply say hello. 
+              We're here to help you find the perfect timepiece for your space.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg"
+                className="bg-white text-taara-dark-wood hover:bg-taara-cream px-8"
+                onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
+              >
+                <MessageCircle className="mr-2" size={20} />
+                Start Conversation
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline" 
+                className="border-white/30 text-white hover:bg-white/10 px-8"
+                onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                View Products
+              </Button>
             </div>
           </div>
         </div>
