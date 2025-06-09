@@ -1,13 +1,28 @@
-
 import { useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useCart } from "@/components/CartContext";
 
 const ProductsPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
+  const { addToCart } = useCart();
+  const [quantities, setQuantities] = useState<{ [id: number]: number }>({});
+
+  const handleQuantityChange = (id: number, value: string) => {
+    const num = Math.max(1, Number(value.replace(/[^\d]/g, "")));
+    setQuantities((prev) => ({ ...prev, [id]: num }));
+  };
+
+  const handleIncrement = (id: number) => {
+    setQuantities((prev) => ({ ...prev, [id]: (prev[id] || 1) + 1 }));
+  };
+
+  const handleDecrement = (id: number) => {
+    setQuantities((prev) => ({ ...prev, [id]: Math.max(1, (prev[id] || 1) - 1) }));
+  };
 
   const categories = [
     { id: "all", name: "All Products" },
@@ -290,12 +305,52 @@ const ProductsPage = () => {
                     <div className="text-lg font-bold text-taara-brown">
                       {product.price}
                     </div>
+                    {/* Quantity controls */}
+                    <div className="flex items-center gap-2 mr-2">
+                      <button
+                        type="button"
+                        className="px-2 py-1 bg-taara-cream rounded-l border border-taara-brown text-taara-brown hover:bg-taara-golden"
+                        onClick={() => handleDecrement(product.id)}
+                        aria-label="Decrease quantity"
+                      >
+                        –
+                      </button>
+                      <input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        className="w-12 text-center border border-taara-brown rounded text-taara-brown bg-taara-cream font-bold focus:ring-2 focus:ring-taara-brown"
+                        value={quantities[product.id] || 1}
+                        onChange={e => handleQuantityChange(product.id, e.target.value)}
+                        aria-label="Quantity"
+                      />
+                      <button
+                        type="button"
+                        className="px-2 py-1 bg-taara-cream rounded-r border border-taara-brown text-taara-brown hover:bg-taara-golden"
+                        onClick={() => handleIncrement(product.id)}
+                        aria-label="Increase quantity"
+                      >
+                        +
+                      </button>
+                    </div>
                     <Button 
                       size="sm"
                       className="bg-taara-brown hover:bg-taara-dark-brown text-white"
-                      onClick={() => window.open(`https://m.me/taaracraft?text=Hi! I'm interested in ${product.name}`, '_blank')}
+                      onClick={() => {
+                        const quantity = quantities[product.id] || 1;
+                        for (let i = 0; i < quantity; i++) {
+                          addToCart({
+                            id: product.id,
+                            name: product.name,
+                            price: Number(product.price.replace(/[^\d]/g, "")),
+                            image: product.image
+                          });
+                        }
+                        alert(`Added ${quantity} x ${product.name} to cart!`);
+                        setQuantities((prev) => ({ ...prev, [product.id]: 1 }));
+                      }}
                     >
-                      Order Now
+                      Add to Cart
                     </Button>
                   </div>
                 </div>

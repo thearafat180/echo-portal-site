@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useState, useEffect } from "react";
+import { useCart } from "@/components/CartContext";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const ProductDetailPage = () => {
     price: "৳990",
     images: [
       "https://scontent.fdac5-1.fna.fbcdn.net/v/t39.30808-6/471307482_122100997946696417_2176757133234934279_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeG-y4_qyUn0Q816_1bWPl0LqxovZiAfjGOrGi9mIB-MY12Hj5zm3AzsPUItxW2WY6XJqs5edSILACTdlJQlMuW5&_nc_ohc=9hECdNPD99wQ7kNvwFgm_Ip&_nc_oc=AdnfWf5Jv-rxKJOhpLuXxyvhvgEdAAOLi1nQdclPdHs1QipZwG1Au8iLVijaSL5BGWo&_nc_zt=23&_nc_ht=scontent.fdac5-1.fna&_nc_gid=D_u39G8n1l5RcLcdxQQbfA&oh=00_AfMqbcz2JrOMAKAV0UOdHcwWw-1O2PaRGJsOrbWf_SquhA&oe=684C328E",
-      "https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/471275010_122100997904696417_2350659953430937717_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEiVVKBpLVvYLiwfXIGTwr82PfzxCzuqDLY9_PELO6oMliaOi-G53jQz5xFnv7ZgeIbVp860tvMoqlE5ciulkcK&_nc_ohc=aFwfBRxrxSMQ7kNvwFJrRiv&_nc_oc=AdlPmm9TJW5S3D0-NcgtRWR51aYrTFPJ_dxW1X2OzC3FYb28_n4Sa1-zuiBrWI6HvYs&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=k85jcPRzttaXTMG9l-cPJA&oh=00_AfPyUMvo7rt9U60dOj-qRTMpxZzrDuDha7RUPd-Fb93oQA&oe=684C3FD4",
+      "https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/471275010_122100997904696417_2350659953430937717_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEiVVKBpLVvYLiwfXIGTwr82PfzxCzuqDLY9_PELO6oMliaOi-G53jQz5xFnv7ZgeIbVp860tvMoqlE5ciulkcK&_nc_ohc=aFwfBRxrxSMQ7kNvwExNqi3&_nc_oc=AdlPmm9TJW5S3D0-NcgtRWR51aYrTFPJ_dxW1X2OzC3FYb28_n4Sa1-zuiBrWI6HvYs&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=k85jcPRzttaXTMG9l-cPJA&oh=00_AfPyUMvo7rt9U60dOj-qRTMpxZzrDuDha7RUPd-Fb93oQA&oe=684C3FD4",
       "https://scontent.fdac5-1.fna.fbcdn.net/v/t39.30808-6/471348845_122100997988696417_6359450718702967852_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeHk6hSMZeQs6fa9p_NK77DegSofA1JgNtSBKh8DUmA21Ki5iGmEx1Ek8SYpnqHHzhxAM29KX75KmFxnV_CjQBPF&_nc_ohc=W3dC2M5tZuQQ7kNvwFxjnQq&_nc_oc=AdkN7mwbuCa29LjOvXIqeNjOJlustjS2ibzVl3bcGoQ-JjvLHlo4OYJ7OV2X5XkBuTk&_nc_zt=23&_nc_ht=scontent.fdac5-1.fna&_nc_gid=_nUCXY8G3tDhobQe4CXnuQ&oh=00_AfNi8y8BAqkyk_qpvDrrFUjV2WsimgzFNXcrx7XfHyNpqQ&oe=684C4F3D"
     ],
     description: "This handcrafted wooden clock with brass compass design represents the perfect fusion of functionality and artistry. Each piece is meticulously carved by skilled artisans in Bangladesh, using premium teak wood and genuine brass accents.",
@@ -73,6 +74,8 @@ const ProductDetailPage = () => {
 ];
 
 const product = products.find((p) => p.id === parseInt(id));
+
+const { addToCart } = useCart();
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -199,6 +202,20 @@ const product = products.find((p) => p.id === parseInt(id));
                 <div className="text-3xl font-bold text-taara-brown mb-6">
                   {product.price}
                 </div>
+                <Button 
+                  className="w-full bg-taara-brown hover:bg-taara-dark-brown text-white text-lg py-4 mb-4"
+                  onClick={() => {
+                    addToCart({
+                      id: product.id,
+                      name: product.name,
+                      price: Number(product.price.replace(/[^\d]/g, "")),
+                      image: product.images[0]
+                    });
+                    alert(`Added ${product.name} to cart!`);
+                  }}
+                >
+                  Add to Cart
+                </Button>
               </div>
 
               <div className="prose prose-lg text-taara-dark-brown/80">

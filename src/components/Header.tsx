@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "@/components/CartContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { getCartCount } = useCart();
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -45,11 +48,27 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA, Auth Buttons, Cart Icon */}
+          <div className="hidden md:flex items-center gap-2">
             <Button variant="default">
               Order on Facebook
             </Button>
+            <Link to="/login">
+              <Button className="ml-2 bg-taara-brown text-white">Login</Button>
+            </Link>
+            <Link to="/signup">
+              <Button className="ml-2 bg-taara-brown text-white">Sign Up</Button>
+            </Link>
+            <button
+              className="relative ml-4"
+              onClick={() => navigate("/cart")}
+              aria-label="View cart"
+            >
+              <ShoppingCart size={28} className="text-taara-brown" />
+              <span className="absolute -top-2 -right-2 bg-taara-yellow text-xs text-white rounded-full px-2 py-0.5 font-bold shadow">
+                {getCartCount()}
+              </span>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -75,6 +94,8 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
+              <Link to="/login" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Login</Link>
+              <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Sign Up</Link>
               <Button variant="default" className="mt-4 w-full">
                 Order on Facebook
               </Button>

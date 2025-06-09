@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 
 const ImageSlider = () => {
@@ -44,18 +43,6 @@ const ImageSlider = () => {
             alt={slide.title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent">
-            <div className="container mx-auto px-6 h-full flex items-center">
-              <div className="text-white max-w-lg">
-                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                  {slide.title}
-                </h2>
-                <p className="text-xl md:text-2xl opacity-90">
-                  {slide.subtitle}
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       ))}
       
