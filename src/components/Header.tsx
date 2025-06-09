@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -48,7 +47,7 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="bg-taara-brown hover:bg-taara-dark-brown text-white">
+            <Button variant="default">
               Order on Facebook
             </Button>
           </div>
@@ -76,7 +75,7 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <Button className="bg-taara-brown hover:bg-taara-dark-brown text-white mt-4 w-full">
+              <Button variant="default" className="mt-4 w-full">
                 Order on Facebook
               </Button>
             </div>

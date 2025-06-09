@@ -115,7 +115,7 @@ const About = () => {
             <div className="relative animate-fade-in">
               <div className="bg-taara-wood/5 rounded-3xl p-8">
                 <img
-                  src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop"
+                  src="https://i.postimg.cc/6pSQGxJ4/Copy-of-Business-Plan-Presentation.gif"
                   alt="Handcrafted wooden clock"
                   className="w-full h-80 object-cover rounded-2xl shadow-lg"
                 />

@@ -1,4 +1,3 @@
-
 import Header from "@/components/Header";
 import ImageSlider from "@/components/ImageSlider";
 import Hero from "@/components/Hero";
@@ -17,8 +16,8 @@ const Index = () => {
       <ImageSlider />
       <Hero />
       <MostPopular />
-      <About />
       <Products />
+      <About />
       <WhyChooseUs />
       <Testimonials />
       <Contact />

@@ -1,4 +1,3 @@
-
 import { MessageCircle, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -36,7 +35,8 @@ const Contact = () => {
                 Connect with us on Facebook for quick responses and to see our latest creations.
               </p>
               <Button 
-                className="w-full bg-taara-wood hover:bg-taara-dark-wood text-white"
+                variant="default"
+                className="w-full"
                 onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
               >
                 Message on Facebook
@@ -55,8 +55,8 @@ const Contact = () => {
                 Send us detailed inquiries about custom orders or general questions.
               </p>
               <Button 
-                variant="outline" 
-                className="w-full border-taara-wood text-taara-wood hover:bg-taara-wood hover:text-white"
+                variant="default"
+                className="w-full"
                 onClick={() => window.location.href = 'mailto:info@taaracraft.com'}
               >
                 Send Email
@@ -81,33 +81,33 @@ const Contact = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="bg-gradient-to-r from-taara-wood to-taara-dark-wood rounded-3xl p-8 md:p-12 text-center text-white">
-            <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Ready to Order?
-            </h3>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Browse our collection, ask about custom pieces, or simply say hello. 
-              We're here to help you find the perfect timepiece for your space.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                size="lg"
-                className="bg-white text-taara-dark-wood hover:bg-taara-cream px-8"
-                onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
-              >
-                <MessageCircle className="mr-2" size={20} />
-                Start Conversation
-              </Button>
-              <Button 
-                size="lg"
-                variant="outline" 
-                className="border-white/30 text-white hover:bg-white/10 px-8"
-                onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                View Products
-              </Button>
+          <div className="bg-gradient-to-r from-taara-brown to-taara-dark-brown rounded-3xl p-8 md:p-12 text-center text-white">
+              <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                Ready to Order?
+              </h3>
+              <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                Browse our collection, ask about custom pieces, or simply say hello. 
+                We're here to help you find the perfect timepiece for your space.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  className="bg-white text-taara-dark-brown hover:bg-taara-cream px-8"
+                  onClick={() => window.open('https://m.me/taaracraft', '_blank')}
+                >
+                  <MessageCircle className="mr-2" size={20} />
+                  Start Conversation
+                </Button>
+                <Button 
+                  size="lg"
+                  variant="outline" 
+                  className="border-white/30 text-white hover:bg-white/10 px-8"
+                  onClick={() => window.location.href = '/products'}
+                >
+                  View Products
+                </Button>
+              </div>
             </div>
-          </div>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
-
 import { Facebook, Mail, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -82,13 +83,34 @@ const Footer = () => {
                 <p className="text-gray-300 mb-4">
                   Stay updated with our latest creations and behind-the-scenes content.
                 </p>
-                <button 
-                  className="bg-taara-yellow hover:bg-taara-golden px-6 py-3 rounded-full font-semibold transition-colors text-taara-charcoal"
+                <Button 
+                  variant="secondary"
+                  className="rounded-full"
                   onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
                 >
-                  Order Now
-                </button>
+                  Order on Facebook
+                </Button>
               </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex gap-4 mt-8">
+              <Button 
+                variant="ghost"
+                size="icon"
+                className="rounded-lg"
+                onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
+              >
+                <Facebook className="w-5 h-5" />
+              </Button>
+              <Button 
+                variant="ghost"
+                size="icon"
+                className="rounded-lg"
+                onClick={() => window.open('https://instagram.com/taaracraft', '_blank')}
+              >
+                <Instagram className="w-5 h-5" />
+              </Button>
             </div>
           </div>
         </div>

@@ -59,12 +59,12 @@ const ContactPage = () => {
                   Send us detailed inquiries about custom orders or general questions.
                 </p>
                 <Button 
-                  variant="outline" 
-                  className="w-full border-taara-brown text-taara-brown hover:bg-taara-brown hover:text-white"
-                  onClick={() => window.location.href = 'mailto:info@taaracraft.com'}
-                >
-                  Send Email
-                </Button>
+                variant="default"
+                className="w-full"
+                onClick={() => window.location.href = 'mailto:info@taaracraft.com'}
+              >
+                Send Email
+              </Button>
               </div>
 
               {/* Location */}
