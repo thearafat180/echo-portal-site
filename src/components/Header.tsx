@@ -18,7 +18,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-taara-warm-white/90 backdrop-blur-md border-b border-taara-golden">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-taara-warm-white/80 backdrop-blur-2xl border-b border-taara-golden bg-gradient-to-b from-taara-warm-white/90 to-taara-warm-white/60">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -50,9 +50,14 @@ const Header = () => {
 
           {/* CTA, Auth Buttons, Cart Icon */}
           <div className="hidden md:flex items-center gap-2">
-            <Button variant="default">
+            <a
+              href="https://facebook.com/taaracraft"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-4 py-2 rounded bg-taara-brown text-white font-medium shadow hover:bg-taara-dark-brown transition-colors duration-300"
+            >
               Order on Facebook
-            </Button>
+            </a>
             <Link to="/login">
               <Button className="ml-2 bg-taara-brown text-white">Login</Button>
             </Link>
@@ -96,9 +101,25 @@ const Header = () => {
               ))}
               <Link to="/login" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Login</Link>
               <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Sign Up</Link>
-              <Button variant="default" className="mt-4 w-full">
+              <a
+                href="https://facebook.com/taaracraft"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-4 w-full px-4 py-2 rounded bg-taara-brown text-white font-medium shadow hover:bg-taara-dark-brown transition-colors duration-300 text-center"
+              >
                 Order on Facebook
-              </Button>
+              </a>
+              <button
+                className="relative mt-4 flex items-center justify-center w-full"
+                onClick={() => { setIsMenuOpen(false); navigate('/cart'); }}
+                aria-label="View cart"
+              >
+                <ShoppingCart size={28} className="text-taara-brown" />
+                <span className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-taara-yellow text-xs text-white rounded-full px-2 py-0.5 font-bold shadow">
+                  {getCartCount()}
+                </span>
+                <span className="ml-2 text-taara-brown font-medium">Cart</span>
+              </button>
             </div>
           </nav>
         )}

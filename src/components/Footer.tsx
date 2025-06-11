@@ -29,11 +29,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-300">
                 <Mail size={16} />
-                <span>info@taaracraft.com</span>
+                <span>craft.taara@gmail.com</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <MapPin size={16} />
-                <span>Bangladesh</span>
+                <span>Bhola Sadar, Bhola, Bangladesh</span>
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@ const Footer = () => {
         <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-400 text-sm">
-              © 2024 TAARA Craft. All rights reserved. Handcrafted with ❤️ in Bangladesh.
+              © 2025 TAARA Craft. All rights reserved. Handcrafted with ❤️ in Bangladesh.
             </div>
             
             <div className="flex gap-4">

@@ -4,6 +4,11 @@ const ImageSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
+    // {
+    //   image: "https://i.postimg.cc/cJ1mvnSJ/jbjbjb.png",
+    //   title: "Handcrafted Wooden Clocks",
+    //   subtitle: "Timeless elegance for your home"
+    // },
     {
       image: "https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/471285958_122101646468696417_8001729684224055963_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=86c6b0&_nc_eui2=AeGXxmXiBxznYfrAgvIbfAwLNky3yd8fWLM2TLfJ3x9Ys-NMT1AL_NbHe_ak3Zyx08Al8DNEmp7omY8k5j76Lsp-&_nc_ohc=rh7-0H2t9FwQ7kNvwHn6GrY&_nc_oc=AdltuzcRq7J8OB8Ds5os95ZiUBcRhZqvYnhdSrJU2zrQMU2VzfNOaeyH88mf42zUpZ4&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=FoNqzEuiCIXhsvgNpDuSvw&oh=00_AfPXbt8WTgddHuxQFyEaVdAbKpXW0Y0fYJS_XsfDmzOY1Q&oe=684C42CF",
       title: "Handcrafted Wooden Clocks",
@@ -30,7 +35,7 @@ const ImageSlider = () => {
   }, [slides.length]);
 
   return (
-    <div className="relative h-96 overflow-hidden mt-20">
+    <div className="relative h-[80rem] sm:h-80 overflow-hidden mt-10">
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -41,7 +46,7 @@ const ImageSlider = () => {
           <img
             src={slide.image}
             alt={slide.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
         </div>
       ))}

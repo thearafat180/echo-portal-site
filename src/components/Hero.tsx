@@ -15,7 +15,7 @@ const Hero = () => {
           <h1 className="text-5xl md:text-7xl font-display font-bold text-taara-charcoal mb-8 leading-tight animate-fade-in-up">
             Timeless
             <span className="text-taara-brown block">Handmade</span>
-            <span className="text-taara-dark-brown">Wooden Clocks</span>
+            <span className="text-taara-dark-brown">Wooden Items</span>
           </h1>
 
           {/* Subheading */}

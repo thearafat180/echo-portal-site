@@ -8,10 +8,23 @@ const MostPopular = () => {
 
   const popularProducts = [
     {
+      id: 24,
+      name: "WC - 4A11",
+      category: "Wooden Clocks",
+      price: "৳550",
+      images: [
+        "https://i.postimg.cc/CK78kwDN/2.png",
+        "https://i.postimg.cc/9QGZXdQs/1.png",
+        "https://i.postimg.cc/fbDXVV3y/3.png",
+        "https://i.postimg.cc/JnhkQS5W/4.png",
+      ],
+      description: "This handcrafted wooden clock with brass compass design."
+    },
+    {
       id: 2,
       name: "WC - 4A1",
       category: "Wooden Clocks",
-      price: "৳990",
+      price: "৳1390",
       images: [
         "https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/471165432_122100717080696417_3133648347393880866_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGf-MhfY9Sqi5S-QkjD_umspT44QnHQIWalPjhCcdAhZvHVq5RecPMGcTRtBgzCpIeyqQjVH38GtyqallBxdZab&_nc_ohc=stChLZrCGewQ7kNvwExNqi3&_nc_oc=AdkOi9ZyEFenZ3YpYilNMHAuyZQxjGXnVXuLu_M--V_vp4thO17KxfRRbeTJPtog9p0&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=4p9dbKVZrRIJgytBXOd5dQ&oh=00_AfN8hWqQnUsKrwPFYZT_lXbT8v8GFj9sS3EA3eic-iEEjw&oe=684C5454",
         "https://scontent.fdac5-1.fna.fbcdn.net/v/t39.30808-6/471148547_122100717146696417_777247730751399368_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEUwTFFOKwW946nNU9e_h5EDTTpub9xYlwNNOm5v3FiXLAPYwwsPF-M53PNLhuzsy2QqW0F9lvCkQdJKzCzlcos&_nc_ohc=joPi_tKvvQ8Q7kNvwHXXcSV&_nc_oc=Adl3e_xxlvnTBf-85r9qOBBzX0qUokrIJuuWRdDHsHaUyhIWFpvz_aLaM6vUOoUIQ8Q&_nc_zt=23&_nc_ht=scontent.fdac5-1.fna&_nc_gid=DDz61VIpQ9EeeMbeGEvr1g&oh=00_AfPIYaj0C36CGEVq0k7nsVbAXpzwZhmQmcnFlE3ffljX7w&oe=684C370A",
@@ -20,32 +33,23 @@ const MostPopular = () => {
       description: "This handcrafted wooden clock with brass compass design."
     },
     {
-      id: 1,
+      id: 15,
       name: "Sunset Cascade",
       category: "Jewelry",
-      price: "৳800",
+      price: "৳300",
       images: [
       "https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/503847407_122130851288696417_8527181941080412485_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeEdm-BPesprcRoZ6AFk6T4V0Tccq-8AHcPRNxyr7wAdw5XQPiZCahKTuGBuFVDAngJIvLrGQ3Zv5HgXTnTcu3Zm&_nc_ohc=SNb0UtaJewoQ7kNvwEM7ml9&_nc_oc=AdmQpfxiRf_VhgmN0yTvuAHH9QJec9BLUUJWK7IuFyIwk8pE6t-RAMl9oPRE7Kv2rps&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=X_S4WcIUpBUAw8mChXg2hg&oh=00_AfN1V3pwFVwhZUNGufXhC0XKr7NxPQOup6B9wyGdOeR2tg&oe=684C4293",
       ],
       description: "Elegant wooden pendant with intricate star carving"
     },
     {
-      id: 2,
-      name: "Venti Bag",
-      category: "Crafting",
-      price: "৳1,200",
-      images: [
-        "https://i.postimg.cc/DyvZsztN/photo-2025-06-09-10-35-55.jpg",
-      ],
-      description: "Multi-compartment wooden desk organizer"
-    },
-    {
       id: 21,
       name: "Rack Tool",
       category: "others",
-      price: "৳900",
+      price: "৳2500",
       images: [
-        "https://i.postimg.cc/cLj4VBrq/Whats-App-Image-2025-06-09-at-10-36-18-3a47dd67.jpg",
+        "https://i.postimg.cc/ZKTfNNcN/1.png",
+        "https://i.postimg.cc/L85NCMG6/1-0.png",
       ],
       description: "Personalized wooden storage box with custom engraving"
     },

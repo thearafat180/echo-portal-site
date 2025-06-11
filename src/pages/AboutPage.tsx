@@ -117,9 +117,11 @@ const AboutPage = () => {
                 </p>
 
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-taara-brown rounded-full flex items-center justify-center text-white font-bold">
-                    T
-                  </div>
+                  <img 
+                    src="/lovable-uploads/d8de54f9-1405-4e3f-b82a-f24a4d0f5b35.png" 
+                    alt="TAARA Craft Logo" 
+                    className="w-8 h-8"
+                  />
                   <div>
                     <div className="font-semibold text-taara-charcoal">TAARA Craft Team</div>
                     <div className="text-sm text-taara-dark-brown/70">Artisans from Bangladesh</div>
@@ -130,7 +132,7 @@ const AboutPage = () => {
               <div className="relative animate-fade-in">
                 <div className="bg-taara-yellow/10 rounded-3xl p-8">
                   <img
-                    src="https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=600&h=400&fit=crop"
+                    src="https://i.postimg.cc/6pSQGxJ4/Copy-of-Business-Plan-Presentation.gif"
                     alt="Handcrafted wooden clock"
                     className="w-full h-80 object-cover rounded-2xl shadow-lg"
                   />

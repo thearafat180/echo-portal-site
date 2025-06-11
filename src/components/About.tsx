@@ -102,9 +102,11 @@ const About = () => {
               </p>
 
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-taara-wood rounded-full flex items-center justify-center text-white font-bold">
-                  T
-                </div>
+                <img 
+                  src="/lovable-uploads/d8de54f9-1405-4e3f-b82a-f24a4d0f5b35.png" 
+                  alt="TAARA Craft Logo" 
+                  className="w-8 h-8"
+                />
                 <div>
                   <div className="font-semibold text-taara-charcoal">TAARA Craft Team</div>
                   <div className="text-sm text-taara-dark-wood/70">Artisans from Bangladesh</div>
