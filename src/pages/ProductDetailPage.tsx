@@ -68,7 +68,7 @@ const ProductDetailPage = () => {
     id: 2,
     name: "WC - 4A1",
     category: "Wooden Clocks",
-    price: "৳990",
+    price: "৳1390",
     images: [
       "https://scontent.fdac5-2.fna.fbcdn.net/v/t39.30808-6/471165432_122100717080696417_3133648347393880866_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeGf-MhfY9Sqi5S-QkjD_umspT44QnHQIWalPjhCcdAhZvHVq5RecPMGcTRtBgzCpIeyqQjVH38GtyqallBxdZab&_nc_ohc=stChLZrCGewQ7kNvwExNqi3&_nc_oc=AdkOi9ZyEFenZ3YpYilNMHAuyZQxjGXnVXuLu_M--V_vp4thO17KxfRRbeTJPtog9p0&_nc_zt=23&_nc_ht=scontent.fdac5-2.fna&_nc_gid=4p9dbKVZrRIJgytBXOd5dQ&oh=00_AfN8hWqQnUsKrwPFYZT_lXbT8v8GFj9sS3EA3eic-iEEjw&oe=684C5454",
       "https://scontent.fdac5-1.fna.fbcdn.net/v/t39.30808-6/471148547_122100717146696417_777247730751399368_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeEUwTFFOKwW946nNU9e_h5EDTTpub9xYlwNNOm5v3FiXLAPYwwsPF-M53PNLhuzsy2QqW0F9lvCkQdJKzCzlcos&_nc_ohc=joPi_tKvvQ8Q7kNvwHXXcSV&_nc_oc=Adl3e_xxlvnTBf-85r9qOBBzX0qUokrIJuuWRdDHsHaUyhIWFpvz_aLaM6vUOoUIQ8Q&_nc_zt=23&_nc_ht=scontent.fdac5-1.fna&_nc_gid=DDz61VIpQ9EeeMbeGEvr1g&oh=00_AfPIYaj0C36CGEVq0k7nsVbAXpzwZhmQmcnFlE3ffljX7w&oe=684C370A",
@@ -111,13 +111,14 @@ const ProductDetailPage = () => {
     specifications: {
       "Material": "PVC Board",
       "Dimensions": "10.5 inch x 10 inch", 
-      "Weight": "1.2 kg",
+      "Weight": "0.5 kg",
       "Movement": "Silent Quartz",
     }
   },
 ];
 
 const product = products.find((p) => p.id === parseInt(id));
+
 
 const { addToCart } = useCart();
 
@@ -320,6 +321,64 @@ const { addToCart } = useCart();
         </div>
       </div>
 
+      {/* Similar Products Section */}
+      <div className="bg-taara-cream py-16">
+        <div className="container mx-auto px-6">
+          <h2 className="text-2xl font-bold text-taara-charcoal mb-8">Similar Products</h2>
+          <div className="relative">
+            <button
+              type="button"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
+              style={{ left: '-20px' }}
+              onClick={() => {
+                const el = document.getElementById('similar-products-row');
+                if (el) el.scrollBy({ left: -300, behavior: 'smooth' });
+              }}
+            >
+              <ChevronLeft size={28} />
+            </button>
+            <div
+              id="similar-products-row"
+              className="flex gap-6 overflow-x-auto scrollbar-hide pb-2"
+              style={{ scrollBehavior: 'smooth' }}
+            >
+              {products
+                .filter((p) => p.category === product.category && p.id !== product.id)
+                .map((similar) => (
+                  <Link
+                    to={`/product/${similar.id}`}
+                    key={similar.id}
+                    className="min-w-[220px] max-w-[220px] bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden group flex-shrink-0"
+                  >
+                    <div className="aspect-square overflow-hidden">
+                      <img
+                        src={similar.images[0]}
+                        alt={similar.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <div className="text-taara-brown font-medium text-sm mb-1">{similar.category}</div>
+                      <div className="font-bold text-lg text-taara-charcoal mb-2">{similar.name}</div>
+                      <div className="text-taara-brown font-semibold">{similar.price}</div>
+                    </div>
+                  </Link>
+                ))}
+            </div>
+            <button
+              type="button"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 rounded-full p-2 shadow hover:bg-white transition"
+              style={{ right: '-20px' }}
+              onClick={() => {
+                const el = document.getElementById('similar-products-row');
+                if (el) el.scrollBy({ left: 300, behavior: 'smooth' });
+              }}
+            >
+              <ChevronRight size={28} />
+            </button>
+          </div>
+        </div>
+      </div>
       <Footer />
     </div>
   );
