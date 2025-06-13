@@ -37,7 +37,7 @@ const ProductsPage = () => {
       id: 24,
       name: "WC - 4A11",
       category: "clocks",
-      price: "৳500",
+      price: "৳650",
       image: "https://i.postimg.cc/CK78kwDN/2.png",
       // image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=400&h=300&fit=crop",
       description: "Handcrafted wooden clock with brass compass design"

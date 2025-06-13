@@ -34,8 +34,40 @@ const ImageSlider = () => {
     return () => clearInterval(timer);
   }, [slides.length]);
 
+  // return (
+  //   <div className="relative h-[80rem] sm:h-80 overflow-hidden mt-10">
+  //     {slides.map((slide, index) => (
+  //       <div
+  //         key={index}
+  //         className={`absolute inset-0 transition-opacity duration-1000 ${
+  //           index === currentSlide ? 'opacity-100' : 'opacity-0'
+  //         }`}
+  //       >
+  //         <img
+  //           src={slide.image}
+  //           alt={slide.title}
+  //           className="w-full h-full object-cover object-top"
+  //         />
+  //       </div>
+  //     ))}
+      
+  //     {/* Dots indicator */}
+  //     <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+  //       {slides.map((_, index) => (
+  //         <button
+  //           key={index}
+  //           onClick={() => setCurrentSlide(index)}
+  //           className={`w-3 h-3 rounded-full transition-colors ${
+  //             index === currentSlide ? 'bg-taara-yellow' : 'bg-white/50'
+  //           }`}
+  //         />
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div className="relative h-[80rem] sm:h-80 overflow-hidden mt-10">
+    <div className="hidden md:block relative h-[80rem] sm:h-80 overflow-hidden mt-10">
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -50,7 +82,7 @@ const ImageSlider = () => {
           />
         </div>
       ))}
-      
+
       {/* Dots indicator */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (
@@ -65,6 +97,7 @@ const ImageSlider = () => {
       </div>
     </div>
   );
+
 };
 
 export default ImageSlider;

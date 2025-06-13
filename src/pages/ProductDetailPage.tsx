@@ -95,7 +95,7 @@ const ProductDetailPage = () => {
     id: 24,
     name: "WC - 4A11",
     category: "Wooden Clocks",
-    price: "৳550",
+    price: "৳650",
     images: [
       "https://i.postimg.cc/CK78kwDN/2.png",
       "https://i.postimg.cc/9QGZXdQs/1.png",
