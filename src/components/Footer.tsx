@@ -1,5 +1,6 @@
-
 import { Facebook, Mail, MapPin } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -28,11 +29,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-300">
                 <Mail size={16} />
-                <span>info@taaracraft.com</span>
+                <span>craft.taara@gmail.com</span>
               </div>
               <div className="flex items-center gap-3 text-gray-300">
                 <MapPin size={16} />
-                <span>Bangladesh</span>
+                <span>Bhola Sadar, Bhola, Bangladesh</span>
               </div>
             </div>
           </div>
@@ -82,13 +83,34 @@ const Footer = () => {
                 <p className="text-gray-300 mb-4">
                   Stay updated with our latest creations and behind-the-scenes content.
                 </p>
-                <button 
-                  className="bg-taara-yellow hover:bg-taara-golden px-6 py-3 rounded-full font-semibold transition-colors text-taara-charcoal"
+                <Button 
+                  variant="secondary"
+                  className="rounded-full"
                   onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
                 >
-                  Order Now
-                </button>
+                  Order on Facebook
+                </Button>
               </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex gap-4 mt-8">
+              <Button 
+                variant="ghost"
+                size="icon"
+                className="rounded-lg"
+                onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
+              >
+                <Facebook className="w-5 h-5" />
+              </Button>
+              <Button 
+                variant="ghost"
+                size="icon"
+                className="rounded-lg"
+                onClick={() => window.open('https://instagram.com/taaracraft', '_blank')}
+              >
+                <Instagram className="w-5 h-5" />
+              </Button>
             </div>
           </div>
         </div>
@@ -99,7 +121,7 @@ const Footer = () => {
         <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-400 text-sm">
-              © 2024 TAARA Craft. All rights reserved. Handcrafted with ❤️ in Bangladesh.
+              © 2025 TAARA Craft. All rights reserved. Handcrafted with ❤️ in Bangladesh.
             </div>
             
             <div className="flex gap-4">

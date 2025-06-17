@@ -1,4 +1,3 @@
-
 import { Leaf, Users, Sparkles, Clock } from "lucide-react";
 
 const WhyChooseUs = () => {
@@ -70,15 +69,15 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-20 bg-gradient-to-r from-taara-wood to-taara-dark-wood rounded-3xl p-8 md:p-12 text-center text-white">
-          <h3 className="text-3xl md:text-4xl font-display font-bold mb-4">
+        <div className="mt-20 bg-gradient-to-r from-taara-brown to-taara-dark-brown rounded-3xl p-8 md:p-12 text-center text-white shadow-lg">
+          <h3 className="text-3xl md:text-4xl font-display font-bold mb-4 text-taara-cream">
             Experience the Difference
           </h3>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 text-taara-warm-white/90 max-w-2xl mx-auto">
             Join hundreds of satisfied customers who have transformed their spaces with our handcrafted wooden clocks.
           </p>
           <button 
-            className="bg-white text-taara-dark-wood hover:bg-taara-cream px-8 py-4 rounded-full font-semibold transition-colors"
+            className="bg-taara-cream text-taara-dark-brown hover:bg-taara-warm-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
             onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
           >
             Start Your Journey

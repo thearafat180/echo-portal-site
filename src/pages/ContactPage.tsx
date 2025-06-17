@@ -1,4 +1,3 @@
-
 import { MessageCircle, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
@@ -13,8 +12,10 @@ const ContactPage = () => {
       <section className="pt-32 pb-20 bg-gradient-to-br from-taara-warm-white to-taara-cream">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-taara-charcoal mb-8">
-              Contact Us
+            <h1 className="text-5xl md:text-6xl font-display font-bold text-taara-charcoal mb-8 animated-create-heading">
+              {"Contact Us".split("").map((char, i) => (
+                <span key={i} style={{ animationDelay: `${i * 0.08}s` }}>{char === " " ? '\u00A0' : char}</span>
+              ))}
             </h1>
             <p className="text-xl md:text-2xl text-taara-dark-brown/80 mb-12 leading-relaxed">
               Ready to bring a piece of handcrafted artistry into your space? We'd love to hear from you.
@@ -59,12 +60,12 @@ const ContactPage = () => {
                   Send us detailed inquiries about custom orders or general questions.
                 </p>
                 <Button 
-                  variant="outline" 
-                  className="w-full border-taara-brown text-taara-brown hover:bg-taara-brown hover:text-white"
-                  onClick={() => window.location.href = 'mailto:info@taaracraft.com'}
-                >
-                  Send Email
-                </Button>
+                variant="default"
+                className="w-full"
+                onClick={() => window.location.href = 'mailto:info@taaracraft.com'}
+              >
+                Send Email
+              </Button>
               </div>
 
               {/* Location */}

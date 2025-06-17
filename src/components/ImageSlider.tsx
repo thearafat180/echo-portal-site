@@ -1,37 +1,36 @@
-
 import { useState, useEffect } from "react";
+import { supabase } from "../../supabaseClient";
 
 const ImageSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = [
-    {
-      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=1200&h=400&fit=crop",
-      title: "Handcrafted Wooden Clocks",
-      subtitle: "Timeless elegance for your home"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1486718448742-163732cd1544?w=1200&h=400&fit=crop",
-      title: "Artisan Jewelry Collection",
-      subtitle: "Unique pieces crafted with love"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04?w=1200&h=400&fit=crop",
-      title: "Custom Wood Crafting",
-      subtitle: "Bringing your vision to life"
-    }
-  ];
+  const [slides, setSlides] = useState([]);
 
   useEffect(() => {
+    async function fetchSlides() {
+      const { data, error } = await supabase
+        .from("slider_images")
+        .select("image_url, caption, link, sort_order")
+        .eq("active", true)
+        .order("sort_order", { ascending: true });
+      if (!error && data) {
+        setSlides(data);
+      }
+    }
+    fetchSlides();
+  }, []);
+
+  useEffect(() => {
+    if (slides.length === 0) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
-
     return () => clearInterval(timer);
   }, [slides.length]);
 
+  if (slides.length === 0) return null;
+
   return (
-    <div className="relative h-96 overflow-hidden mt-20">
+    <div className="hidden md:block relative h-[80rem] sm:h-80 overflow-hidden mt-10">
       {slides.map((slide, index) => (
         <div
           key={index}
@@ -40,25 +39,18 @@ const ImageSlider = () => {
           }`}
         >
           <img
-            src={slide.image}
-            alt={slide.title}
-            className="w-full h-full object-cover"
+            src={slide.image_url}
+            alt={slide.caption || `Slide ${index + 1}`}
+            className="w-full h-full object-cover object-top"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent">
-            <div className="container mx-auto px-6 h-full flex items-center">
-              <div className="text-white max-w-lg">
-                <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-                  {slide.title}
-                </h2>
-                <p className="text-xl md:text-2xl opacity-90">
-                  {slide.subtitle}
-                </p>
-              </div>
+          {/* Optionally show caption or link */}
+          {slide.caption && (
+            <div className="absolute bottom-8 left-8 bg-black/60 text-white px-4 py-2 rounded-lg">
+              {slide.caption}
             </div>
-          </div>
+          )}
         </div>
       ))}
-      
       {/* Dots indicator */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
         {slides.map((_, index) => (

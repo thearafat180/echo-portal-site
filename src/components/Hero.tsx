@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -16,7 +15,7 @@ const Hero = () => {
           <h1 className="text-5xl md:text-7xl font-display font-bold text-taara-charcoal mb-8 leading-tight animate-fade-in-up">
             Timeless
             <span className="text-taara-brown block">Handmade</span>
-            <span className="text-taara-dark-brown">Wooden Clocks</span>
+            <span className="text-taara-dark-brown">Wooden Items</span>
           </h1>
 
           {/* Subheading */}
@@ -28,12 +27,12 @@ const Hero = () => {
           {/* CTA Button */}
           <div className="mb-16 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             <Button 
-              size="lg" 
-              className="bg-taara-brown hover:bg-taara-dark-brown text-white px-10 py-5 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
+              variant="default"
+              size="lg"
+              className="rounded-full"
+              onClick={() => window.open('https://facebook.com/taaracraft', '_blank')}
             >
-              Explore Our Craft
-              <ArrowRight className="ml-3" size={20} />
+              Order Now
             </Button>
           </div>
 
