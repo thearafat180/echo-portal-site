@@ -4,7 +4,7 @@ import { Instagram } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-taara-charcoal text-white">
+    <footer className="bg-taara-charcoal text-white mt-12">
       {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-16">
         <div className="grid md:grid-cols-3 gap-8">
@@ -12,7 +12,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="/lovable-uploads/d8de54f9-1405-4e3f-b82a-f24a4d0f5b35.png" 
+                src="/Logo_Items/logo.png" 
                 alt="TAARA Craft Logo" 
                 className="w-8 h-8"
               />

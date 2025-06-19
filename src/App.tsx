@@ -15,6 +15,8 @@ import { CartProvider } from "@/components/CartContext";
 import ImageSlider from "@/components/ImageSlider";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
+import PaymentPage from "./pages/PaymentPage";
+import AccountDashboard from "./pages/AccountDashboard";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => {
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
+              <Route path="/payment" element={<PaymentPage />} />
+              <Route path="/account" element={<AccountDashboard />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

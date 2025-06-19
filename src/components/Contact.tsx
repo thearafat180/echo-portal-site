@@ -3,19 +3,17 @@ import { Button } from "@/components/ui/button";
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-20 bg-taara-warm-white">
+    <section id="contact" className="pt-2 bg-taara-warm-white">
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center px-4 py-2 bg-taara-wood/10 text-taara-dark-wood rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center px-4 py-2 bg-taara-wood/10 text-taara-dark-wood rounded-full text-sm font-medium mb-6 animate-fade-in-up">
             Get In Touch
           </div>
-          
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-taara-charcoal mb-6">
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-taara-charcoal mb-6 animate-fade-in-up">
             Let's Create Together
           </h2>
-          
-          <p className="text-xl text-taara-dark-wood/80 max-w-3xl mx-auto">
+          <p className="text-xl text-taara-dark-wood/80 max-w-3xl mx-auto animate-fade-in-up">
             Ready to bring a piece of handcrafted artistry into your space? We'd love to hear from you.
           </p>
         </div>
@@ -110,6 +108,15 @@ const Contact = () => {
             </div>
         </div>
       </div>
+      <style>{`
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.4,0,0.2,1) both;
+}
+`}</style>
     </section>
   );
 };

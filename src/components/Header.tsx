@@ -1,14 +1,37 @@
-import { useState } from "react";
-import { Menu, X, ShoppingCart } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "@/components/CartContext";
+import { supabase } from "../../supabaseClient";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { getCartCount } = useCart();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
+    // Listen for auth changes
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      getUser();
+    });
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    navigate("/");
+  };
 
   const navItems = [
     { label: "Home", href: "/" },
@@ -24,7 +47,7 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img 
-              src="/lovable-uploads/d8de54f9-1405-4e3f-b82a-f24a4d0f5b35.png" 
+              src="/Logo_Items/logo.png" 
               alt="TAARA Craft Logo" 
               className="w-10 h-10"
             />
@@ -59,12 +82,25 @@ const Header = () => {
             >
               Order on Facebook
             </a>
-            <Link to="/login">
-              <Button className="ml-2 bg-taara-brown text-white">Login</Button>
-            </Link>
-            <Link to="/signup">
-              <Button className="ml-2 bg-taara-brown text-white">Sign Up</Button>
-            </Link>
+            {user ? (
+              <>
+                <Link to="/account">
+                  <Button className="ml-2 bg-taara-brown text-white p-2 rounded-full w-10 h-10 flex items-center justify-center" aria-label="Account">
+                    <User size={22} />
+                  </Button>
+                </Link>
+                <Button onClick={handleLogout} className="ml-2 bg-taara-brown text-white">Logout</Button>
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button className="ml-2 bg-taara-brown text-white">Login</Button>
+                </Link>
+                <Link to="/signup">
+                  <Button className="ml-2 bg-taara-brown text-white">Sign Up</Button>
+                </Link>
+              </>
+            )}
             <button
               className="relative ml-4"
               onClick={() => navigate("/cart")}
@@ -100,8 +136,19 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
-              <Link to="/login" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Login</Link>
-              <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Sign Up</Link>
+              {user ? (
+                <>
+                  <Link to="/account" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">
+                    <User size={20} /> <span>Account</span>
+                  </Link>
+                  <button onClick={() => { setIsMenuOpen(false); handleLogout(); }} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Logout</button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Login</Link>
+                  <Link to="/signup" onClick={() => setIsMenuOpen(false)} className="text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium py-2">Sign Up</Link>
+                </>
+              )}
               <a
                 href="https://facebook.com/taaracraft"
                 target="_blank"

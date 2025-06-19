@@ -22,7 +22,7 @@ const LoginPage = () => {
     if (error) {
       setError(error.message);
     } else {
-      navigate("/");
+      navigate("/account"); // Redirect to dashboard after login
     }
   };
 
@@ -31,24 +31,28 @@ const LoginPage = () => {
       <Header />
       <div className="min-h-screen bg-taara-warm-white flex items-center justify-center">
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
-          <h2 className="text-2xl font-bold text-taara-brown mb-4">Login</h2>
+          <h2 className="text-2xl font-bold mb-4">Account Login</h2>
           {error && <div className="text-red-500 text-center">{error}</div>}
           <div>
-            <label className="block mb-1 font-medium">Email</label>
-            <input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full border rounded px-3 py-2" />
+            <label className="block mb-1 font-semibold">Phone / E-Mail</label>
+            <input name="email" type="text" value={form.email} onChange={handleChange} required className="w-full border rounded px-3 py-2" placeholder="Phone / E-Mail" />
           </div>
-          <div>
-            <label className="block mb-1 font-medium">Password</label>
-            <input name="password" type="password" value={form.password} onChange={handleChange} required className="w-full border rounded px-3 py-2" />
+          <div className="flex items-center justify-between">
+            <label className="block mb-1 font-semibold">Password</label>
+            <Link to="/forgot-password" className="text-[#ff3c00] text-sm font-medium">Forgotten Password?</Link>
           </div>
-          <button type="submit" className="w-full bg-taara-brown text-white py-2 rounded font-bold">Login</button>
-          <div className="text-center text-sm mt-4">
-            Don't have an account? <Link to="/signup" className="text-taara-brown hover:underline">Sign Up</Link>
+          <input name="password" type="password" value={form.password} onChange={handleChange} required className="w-full border rounded px-3 py-2" placeholder="Password" />
+          <button type="submit" className="w-full bg-taara-brown hover:bg-taara-dark-brown text-white py-2 rounded font-bold text-lg mt-2">Login</button>
+          <div className="flex items-center my-4">
+            <div className="flex-1 border-t"></div>
+            <div className="mx-4 text-gray-500">Don't have an account?</div>
+            <div className="flex-1 border-t"></div>
           </div>
+          <Link to="/signup" className="block w-full border border-taara-brown text-taara-brown py-2 rounded text-center font-bold text-lg hover:bg-taara-brown hover:text-white transition-colors">Create Your Account</Link>
         </form>
       </div>
     </>
   );
 };
 
-export default LoginPage; 
+export default LoginPage;

@@ -3,11 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "@/components/CartContext";
 import Header from "@/components/Header";
+import { useState } from "react";
+import { Trash2 } from 'lucide-react';
 
 const CartPage = () => {
   const navigate = useNavigate();
   const { cart, removeFromCart, clearCart, incrementQuantity, decrementQuantity } = useCart();
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Add state for selected items
+  const [selectedItems, setSelectedItems] = useState(cart.map(item => item.id));
+  // Only selected items for checkout
+  const selectedCart = cart.filter(item => selectedItems.includes(item.id));
 
   // Use context functions directly
   const handleIncrement = (id: number) => {
@@ -22,55 +27,89 @@ const CartPage = () => {
       <Header />
       <div className="min-h-screen bg-taara-warm-white">
         <div className="container mx-auto px-6 py-32">
-          <h1 className="text-4xl font-bold mb-8 text-taara-brown">Your Cart</h1>
+          <div className="mb-8 flex justify-between items-center">
+            <h1 className="text-6xl font-display font-bold text-taara-dark-brown mb-4 animate-fade-in-up">
+              Your Cart
+            </h1>
+            {cart.length > 0 && (
+              <Button
+                size="lg"
+                className="bg-taara-brown text-white ml-auto"
+                onClick={() => navigate("/checkout", { state: { cart: selectedCart } })}
+                disabled={selectedItems.length === 0}
+              >
+                Proceed to Checkout
+              </Button>
+            )}
+          </div>
           {cart.length === 0 ? (
             <div className="text-center text-taara-dark-brown text-xl">Your cart is empty.</div>
           ) : (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {cart.map((item) => (
-                <Card key={item.id} className="flex flex-col">
-                  <CardHeader className="flex-row items-center gap-4">
-                    <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded-lg" />
-                    <div>
-                      <CardTitle>{item.name}</CardTitle>
-                      <div className="text-taara-brown font-bold text-lg">৳{item.price}</div>
+            <div className="flex flex-col gap-6">
+              {cart.map((item) => {
+                const selected = selectedItems.includes(item.id);
+                return (
+                  <div key={item.id} className={`flex bg-white rounded-2xl shadow p-6 items-center relative border transition-all ${selected ? 'border-taara-brown ring-2 ring-taara-brown/30' : 'border-gray-100'}`}>
+                    {/* Selection Toggle - centered vertically */}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedItems(sel =>
+                        selected ? sel.filter(id => id !== item.id) : [...sel, item.id]
+                      )}
+                      className={`mx-4 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${selected ? 'bg-taara-brown border-taara-brown' : 'border-gray-300 bg-white'}`}
+                      aria-label={selected ? 'Deselect item' : 'Select item'}
+                      style={{ alignSelf: 'center' }}
+                    >
+                      {selected && <span className="text-white font-bold">✓</span>}
+                    </button>
+                    {/* Product Image, Name, Description (clickable) */}
+                    <Link to={`/product/${item.id}`} className="flex-1 min-w-0 group flex items-center gap-4 hover:bg-taara-cream/40 rounded-xl transition-colors px-2 py-1">
+                      <img src={item.image} alt={item.name} className="w-24 h-24 object-cover rounded-lg" />
+                      <div>
+                        <div className="font-bold text-lg text-taara-dark-brown mb-1">{item.name}</div>
+                        {item.short_desc && (
+                          <div className="text-gray-500 text-sm mb-2 max-w-xs truncate" title={item.short_desc}>
+                            {item.short_desc}
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                    {/* Quantity & Price */}
+                    <div className="flex flex-col items-end gap-2 min-w-[120px] ml-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <button
+                          type="button"
+                          className="w-8 h-8 flex items-center justify-center rounded border border-taara-brown text-taara-brown bg-taara-cream hover:bg-taara-golden"
+                          onClick={() => handleDecrement(item.id)}
+                          aria-label="Decrease quantity"
+                        >
+                          –
+                        </button>
+                        <span className="w-8 text-center font-semibold">{item.quantity}</span>
+                        <button
+                          type="button"
+                          className="w-8 h-8 flex items-center justify-center rounded border border-taara-brown text-taara-brown bg-taara-cream hover:bg-taara-golden"
+                          onClick={() => handleIncrement(item.id)}
+                          aria-label="Increase quantity"
+                        >
+                          +
+                        </button>
+                      </div>
+                      <div className="font-bold text-taara-brown text-xl">৳{item.price * item.quantity}</div>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-2">
-                      <span>Qty:</span>
-                      <button
-                        type="button"
-                        className="px-2 py-1 bg-taara-cream rounded-l border border-taara-brown text-taara-brown hover:bg-taara-golden"
-                        onClick={() => handleDecrement(item.id)}
-                        aria-label="Decrease quantity"
-                      >
-                        –
-                      </button>
-                      <input type="number" min={1} value={item.quantity} className="w-16 border rounded px-2 py-1 text-center" readOnly />
-                      <button
-                        type="button"
-                        className="px-2 py-1 bg-taara-cream rounded-r border border-taara-brown text-taara-brown hover:bg-taara-golden"
-                        onClick={() => handleIncrement(item.id)}
-                        aria-label="Increase quantity"
-                      >
-                        +
-                      </button>
-                      {/* TODO: Add quantity update logic */}
-                    </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center">
-                    <Button className="bg-red-600 text-white hover:bg-red-700" onClick={() => removeFromCart(item.id)}>Remove</Button>
-                    {/* TODO: Add remove logic */}
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          )}
-          {cart.length > 0 && (
-            <div className="mt-12 flex flex-col items-end">
-              <div className="text-2xl font-bold mb-4">Total: <span className="text-taara-brown">৳{total}</span></div>
-              <Button size="lg" className="bg-taara-brown text-white" onClick={() => navigate("/checkout")}>Proceed to Checkout</Button>
+                    {/* Remove Icon (not overlapping) */}
+                    <button
+                      type="button"
+                      className="ml-4 text-red-400 hover:text-red-600 transition-colors z-10"
+                      onClick={() => removeFromCart(item.id)}
+                      aria-label="Remove item"
+                      style={{ alignSelf: 'center' }}
+                    >
+                      <Trash2 size={22} />
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           )}
           <div className="mt-8">
@@ -82,4 +121,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage; 
+export default CartPage;

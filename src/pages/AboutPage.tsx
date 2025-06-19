@@ -44,7 +44,7 @@ const AboutPage = () => {
       <section className="pt-32 pb-20 bg-gradient-to-br from-taara-warm-white to-taara-cream">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-display font-bold text-taara-charcoal mb-8 animated-create-heading">
+            <h1 className="text-5xl md:text-6xl font-display font-bold text-taara-charcoal mb-8 animate-fade-in-up">
               {"About TAARA Craft".split("").map((char, i) => (
                 <span key={i} style={{ animationDelay: `${i * 0.08}s` }}>{char === " " ? '\u00A0' : char}</span>
               ))}
@@ -119,7 +119,7 @@ const AboutPage = () => {
 
                 <div className="flex items-center gap-4">
                   <img 
-                    src="/lovable-uploads/d8de54f9-1405-4e3f-b82a-f24a4d0f5b35.png" 
+                    src="/Logo_Items/logo.png" 
                     alt="TAARA Craft Logo" 
                     className="w-8 h-8"
                   />
@@ -154,6 +154,17 @@ const AboutPage = () => {
       </section>
 
       <Footer />
+
+      {/* Add animation CSS */}
+      <style>{`
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.4,0,0.2,1) both;
+}
+`}</style>
     </div>
   );
 };

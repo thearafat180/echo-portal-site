@@ -103,7 +103,7 @@ const About = () => {
 
               <div className="flex items-center gap-4">
                 <img 
-                  src="/lovable-uploads/d8de54f9-1405-4e3f-b82a-f24a4d0f5b35.png" 
+                  src="/Logo_Items/logo.png" 
                   alt="TAARA Craft Logo" 
                   className="w-8 h-8"
                 />
