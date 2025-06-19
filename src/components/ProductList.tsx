@@ -11,10 +11,12 @@ function ProductCard({ product, addToCart }) {
   const images = product.images && Array.isArray(product.images) && product.images.length > 0
     ? product.images
     : [product.image_url];
+  // Limit description to 80 chars
+  const desc = (product.short_desc || product.description || '').slice(0, 80) + ((product.short_desc || product.description || '').length > 80 ? '...' : '');
 
   return (
-    <Link to={`/product/${product.id}`} className="block group no-underline">
-      <div className="bg-white rounded-3xl shadow-md overflow-hidden max-w-xs mx-auto flex flex-col cursor-pointer">
+    <div className="bg-white rounded-3xl shadow-md overflow-hidden max-w-xs mx-auto flex flex-col cursor-pointer transition-transform duration-200 hover:scale-105">
+      <Link to={`/product/${product.id}`} className="block group no-underline flex-1 h-full">
         <div className="relative group">
           {/* Popular badge */}
           {product.popular && (
@@ -51,7 +53,7 @@ function ProductCard({ product, addToCart }) {
         <div className="p-5 flex flex-col flex-1">
           <div className="text-taara-brown font-medium mb-1">{product.category}</div>
           <div className="font-display font-bold text-2xl mb-1">{product.name}</div>
-          <div className="text-taara-dark-brown/80 mb-4">{product.short_desc || product.description}</div>
+          <div className="text-taara-dark-brown/80 mb-4">{desc}</div>
           <div className="flex items-center justify-between mt-auto">
             <div className="text-xl font-bold text-taara-brown">৳{product.price}</div>
             <Button
@@ -71,8 +73,8 @@ function ProductCard({ product, addToCart }) {
             </Button>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
@@ -119,12 +121,12 @@ export function ProductList({ search = "" }) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex gap-4 justify-center my-8">
+    <div className="space-y-6 px-2 md:px-4 lg:px-8 xl:px-16">
+      <div className="flex gap-4 justify-center my-8 flex-wrap">
         {categories.map(cat => (
           <button
             key={cat}
-            className={`px-8 py-4 rounded-full font-semibold shadow ${selectedCategory === cat ? "bg-taara-brown text-white" : "bg-white text-taara-brown"}`}
+            className={`px-8 py-4 rounded-full font-semibold shadow transition-all duration-300 transform hover:scale-105 hover:bg-taara-dark-brown hover:text-white ${selectedCategory === cat ? "bg-taara-brown text-white" : "bg-white text-taara-brown"}`}
             onClick={() => setSelectedCategory(cat)}
           >
             {cat}
@@ -133,7 +135,7 @@ export function ProductList({ search = "" }) {
       </div>
       {/* Products Grid */}
       {filteredProducts && filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:-mx-6 xl:-mx-12">
           {filteredProducts.map((product) => {
             return (
               <ProductCard key={product.id} product={product} addToCart={addToCart} />

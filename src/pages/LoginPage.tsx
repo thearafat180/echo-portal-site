@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer"; // Import the Footer component
 import { supabase } from "../../supabaseClient";
 
 const LoginPage = () => {
@@ -29,7 +30,7 @@ const LoginPage = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-taara-warm-white flex items-center justify-center">
+      <div className="min-h-screen bg-taara-warm-white flex items-center justify-center pt-24">
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
           <h2 className="text-2xl font-bold mb-4">Account Login</h2>
           {error && <div className="text-red-500 text-center">{error}</div>}
@@ -51,6 +52,7 @@ const LoginPage = () => {
           <Link to="/signup" className="block w-full border border-taara-brown text-taara-brown py-2 rounded text-center font-bold text-lg hover:bg-taara-brown hover:text-white transition-colors">Create Your Account</Link>
         </form>
       </div>
+      <Footer /> {/* Add the Footer component here */}
     </>
   );
 };

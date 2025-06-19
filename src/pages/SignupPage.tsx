@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { supabase } from "../../supabaseClient";
 
 const SignupPage = () => {
@@ -43,7 +44,7 @@ const SignupPage = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-taara-warm-white flex items-center justify-center">
+      <div className="min-h-screen bg-taara-warm-white flex items-center justify-center pt-24">
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
           <h2 className="text-2xl font-bold text-taara-brown mb-4">Register Account</h2>
           {error && <div className="text-red-500 text-center">{error}</div>}
@@ -81,6 +82,7 @@ const SignupPage = () => {
           </div>
         </form>
       </div>
+      <Footer />
     </>
   );
 };

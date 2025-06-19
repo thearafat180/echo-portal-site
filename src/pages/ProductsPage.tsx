@@ -24,7 +24,7 @@ export function ProductsPage() {
   return (
     <QueryClientProvider client={queryClient}>
       <Header />
-      <div className="container mx-auto px-4 py-8 pb-16">
+      <div className="container mx-auto px-4 py-8 pb-16 pt-24">
         <div className="mb-8 text-center">
           <h1 className="text-6xl font-display font-bold text-taara-dark-brown mb-4 animate-fade-in-up">
             Products

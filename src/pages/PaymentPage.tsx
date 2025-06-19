@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CheckCircle2, Loader2 } from 'lucide-react';
-import { supabase } from "../../supabaseClient";
+import { supabase } from "@/lib/supabase";
 import { PromoCode } from "../types/promo";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -132,10 +132,20 @@ const PaymentPage = () => {
 				const { data: { user } } = await supabase.auth.getUser();
 				if (!user) {
 					setShowAuthDialog(true);
+				} else {
+					setShowAuthDialog(false);
 				}
 				setCheckingAuth(false);
 			}
 			checkAuth();
+
+			// Listen for auth state changes
+			const { data: listener } = supabase.auth.onAuthStateChange(() => {
+				checkAuth();
+			});
+			return () => {
+				listener?.subscription.unsubscribe();
+			};
 		}, []);
 
 		if (checkingAuth) return null;
@@ -143,10 +153,10 @@ const PaymentPage = () => {
 		if (showAuthDialog) {
 			return (
 				<Dialog open>
-					<DialogContent>
+					<DialogContent onEscapeKeyDown={() => navigate('/cart')} onPointerDownOutside={() => navigate('/cart')}>
 						<div className="text-center">
 							<h2 className="text-2xl font-bold mb-4">Sign In Required</h2>
-							<p className="mb-6">You must be signed in to access the payment page. Please log in or create an account to continue.</p>
+							<p className="mb-6">You must be signed in to access the checkout. Please log in or create an account to continue.</p>
 							<Button className="w-full mb-2" onClick={() => navigate("/login")}>Sign In</Button>
 							<Button className="w-full" variant="outline" onClick={() => navigate("/signup")}>Create Account</Button>
 						</div>
