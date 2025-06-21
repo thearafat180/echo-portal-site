@@ -1,6 +1,106 @@
+// import React, { createContext, useContext, useState, useEffect } from "react";
+
+// export type CartItem = {
+//   id: number;
+//   name: string;
+//   price: number;
+//   image: string;
+//   quantity: number;
+// };
+
+// type CartContextType = {
+//   cart: CartItem[];
+//   addToCart: (item: Omit<CartItem, "quantity">) => void;
+//   removeFromCart: (id: number) => void;
+//   getCartCount: () => number;
+//   clearCart: () => void;
+//   incrementQuantity: (id: number) => void;
+//   decrementQuantity: (id: number) => void;
+// };
+
+// const CartContext = createContext<CartContextType | undefined>(undefined);
+
+// const CART_KEY = "taara_cart";
+
+// export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+//   const [cart, setCart] = useState<CartItem[]>([]);
+
+//   useEffect(() => {
+//     const stored = localStorage.getItem(CART_KEY);
+//     if (stored) setCart(JSON.parse(stored));
+//   }, []);
+
+//   useEffect(() => {
+//     localStorage.setItem(CART_KEY, JSON.stringify(cart));
+//   }, [cart]);
+
+//   const addToCart = (item: Omit<CartItem, "quantity">) => {
+//     setCart((prev) => {
+//       const found = prev.find((i) => i.id === item.id);
+//       if (found) {
+//         return prev.map((i) =>
+//           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+//         );
+//       }
+//       return [...prev, { ...item, quantity: 1 }];
+//     });
+//   };
+
+//   const removeFromCart = (id: number) => {
+//     setCart((prev) => prev.filter((i) => i.id !== id));
+//   };
+
+//   const getCartCount = () => cart.reduce((sum, i) => sum + i.quantity, 0);
+
+//   const clearCart = () => setCart([]);
+
+//   const incrementQuantity = (id: number) => {
+//     setCart((prev) =>
+//       prev.map((i) =>
+//         i.id === id ? { ...i, quantity: i.quantity + 1 } : i
+//       )
+//     );
+//   };
+
+//   const decrementQuantity = (id: number) => {
+//     setCart((prev) =>
+//       prev.map((i) =>
+//         i.id === id ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i
+//       )
+//     );
+//   };
+
+//   return (
+//     <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartCount, clearCart, incrementQuantity, decrementQuantity }}>
+//       {children}
+//     </CartContext.Provider>
+//   );
+// };
+
+// export const useCart = () => {
+//   const ctx = useContext(CartContext);
+//   if (!ctx) throw new Error("useCart must be used within CartProvider");
+//   return ctx;
+// }; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { useNavigate } from "react-router-dom";
+import { useUser } from "@supabase/auth-helpers-react";
 
 export type CartItem = {
   id: number;
@@ -18,145 +118,120 @@ type CartContextType = {
   clearCart: () => void;
   incrementQuantity: (id: number) => void;
   decrementQuantity: (id: number) => void;
-  isSignedIn: boolean;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [userId, setUserId] = useState<string | null>(null);
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [cartLoaded, setCartLoaded] = useState(false); // NEW
-  const navigate = useNavigate();
+  const user = useUser();
 
-  // Fetch user and cart from Supabase on mount or auth change
   useEffect(() => {
-    const getUserAndCart = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const { data: { user } } = await supabase.auth.getUser();
-        console.log('Supabase user:', user);
-        if (user) {
-          setUserId(user.id);
-          setIsSignedIn(true);
-          // Fetch cart from Supabase
-          const { data, error } = await supabase
-            .from('carts')
-            .select('cart_items')
-            .eq('user_id', user.id)
-            .single();
-          console.log('Fetched cart from Supabase:', data, error);
-          if (error && error.code !== 'PGRST116') { // PGRST116: No rows found
-            setError('Supabase error: ' + error.message);
-            setCart([]);
-            setCartLoaded(true);
-          } else if (data && data.cart_items) {
-            setCart(data.cart_items);
-            setCartLoaded(true);
-          } else {
-            setCart([]);
-            setCartLoaded(true);
-          }
-        } else {
-          setUserId(null);
-          setIsSignedIn(false);
-          setCart([]);
-          setCartLoaded(true);
-        }
-      } catch (err: any) {
-        setError('Supabase error: ' + (err.message || 'Unknown error'));
-        setCart([]);
-        setCartLoaded(true);
+    const fetchCart = async () => {
+      if (!user) return;
+      const { data, error } = await supabase
+        .from("carts")
+        .select("*")
+        .eq("user_id", user.id);
+      if (data) {
+        const mapped: CartItem[] = data.map((item) => ({
+          id: Number(item.product_id),
+          name: item.product_name,
+          price: Number(item.price),
+          image: item.image || "",
+          quantity: item.quantity,
+        }));
+        setCart(mapped);
       }
-      setLoading(false);
     };
-    getUserAndCart();
-    // Listen for auth state changes
-    const { data: listener } = supabase.auth.onAuthStateChange(() => {
-      getUserAndCart();
+    fetchCart();
+  }, [user]);
+
+  const insertItemToDB = async (item: Omit<CartItem, "quantity">) => {
+    if (!user) return;
+    await supabase.from("carts").insert({
+      user_id: user.id,
+      product_id: item.id.toString(),
+      product_name: item.name,
+      price: item.price,
+      image: item.image,
+      quantity: 1,
     });
-    return () => {
-      listener?.subscription.unsubscribe();
-    };
-  }, []);
+  };
 
-  // Only sync to Supabase after initial cart load
-  useEffect(() => {
-    const syncCart = async () => {
-      if (!userId || !cartLoaded) return;
-      const { error } = await supabase.from('carts').upsert([
-        {
-          user_id: userId,
-          cart_items: cart,
-          updated_at: new Date().toISOString(),
-        }
-      ], { onConflict: 'user_id' });
-      console.log('Upserted cart to Supabase:', cart, error);
-    };
-    if (userId && cartLoaded) syncCart();
-  }, [cart, userId, cartLoaded]);
-
-  // Require sign-in for all cart actions
-  const requireSignIn = () => {
-    if (!isSignedIn) {
-      navigate('/login');
-      return false;
-    }
-    return true;
+  const updateQuantityInDB = async (productId: number, quantity: number) => {
+    if (!user) return;
+    await supabase
+      .from("carts")
+      .update({ quantity })
+      .eq("user_id", user.id)
+      .eq("product_id", productId.toString());
   };
 
   const addToCart = (item: Omit<CartItem, "quantity">) => {
-    if (!requireSignIn()) return;
     setCart((prev) => {
       const found = prev.find((i) => i.id === item.id);
       if (found) {
+        updateQuantityInDB(item.id, found.quantity + 1);
         return prev.map((i) =>
           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
         );
       }
+      insertItemToDB(item);
       return [...prev, { ...item, quantity: 1 }];
     });
   };
 
   const removeFromCart = (id: number) => {
-    if (!requireSignIn()) return;
     setCart((prev) => prev.filter((i) => i.id !== id));
+    if (user) {
+      supabase
+        .from("carts")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("product_id", id.toString());
+    }
   };
 
   const getCartCount = () => cart.reduce((sum, i) => sum + i.quantity, 0);
 
   const clearCart = () => {
-    if (!requireSignIn()) return;
     setCart([]);
+    if (user) {
+      supabase.from("carts").delete().eq("user_id", user.id);
+    }
   };
 
   const incrementQuantity = (id: number) => {
-    if (!requireSignIn()) return;
     setCart((prev) =>
-      prev.map((i) =>
-        i.id === id ? { ...i, quantity: i.quantity + 1 } : i
-      )
+      prev.map((i) => {
+        if (i.id === id) {
+          const newQty = i.quantity + 1;
+          updateQuantityInDB(id, newQty);
+          return { ...i, quantity: newQty };
+        }
+        return i;
+      })
     );
   };
 
   const decrementQuantity = (id: number) => {
-    if (!requireSignIn()) return;
     setCart((prev) =>
-      prev.map((i) =>
-        i.id === id ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i
-      )
+      prev.map((i) => {
+        if (i.id === id) {
+          const newQty = Math.max(1, i.quantity - 1);
+          updateQuantityInDB(id, newQty);
+          return { ...i, quantity: newQty };
+        }
+        return i;
+      })
     );
   };
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center text-taara-brown text-xl">Loading...</div>;
-  if (error) return <div className="min-h-screen flex items-center justify-center text-red-500 text-xl">{error}</div>;
-
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartCount, clearCart, incrementQuantity, decrementQuantity, isSignedIn }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, getCartCount, clearCart, incrementQuantity, decrementQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
