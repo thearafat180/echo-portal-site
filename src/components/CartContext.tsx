@@ -125,7 +125,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
           return { ...i, quantity: newQty };
         }
         return i;
-      });
+      }); 
     });
   };
 
