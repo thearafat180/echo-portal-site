@@ -1,106 +1,8 @@
-// import React, { createContext, useContext, useState, useEffect } from "react";
-
-// export type CartItem = {
-//   id: number;
-//   name: string;
-//   price: number;
-//   image: string;
-//   quantity: number;
-// };
-
-// type CartContextType = {
-//   cart: CartItem[];
-//   addToCart: (item: Omit<CartItem, "quantity">) => void;
-//   removeFromCart: (id: number) => void;
-//   getCartCount: () => number;
-//   clearCart: () => void;
-//   incrementQuantity: (id: number) => void;
-//   decrementQuantity: (id: number) => void;
-// };
-
-// const CartContext = createContext<CartContextType | undefined>(undefined);
-
-// const CART_KEY = "taara_cart";
-
-// export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-//   const [cart, setCart] = useState<CartItem[]>([]);
-
-//   useEffect(() => {
-//     const stored = localStorage.getItem(CART_KEY);
-//     if (stored) setCart(JSON.parse(stored));
-//   }, []);
-
-//   useEffect(() => {
-//     localStorage.setItem(CART_KEY, JSON.stringify(cart));
-//   }, [cart]);
-
-//   const addToCart = (item: Omit<CartItem, "quantity">) => {
-//     setCart((prev) => {
-//       const found = prev.find((i) => i.id === item.id);
-//       if (found) {
-//         return prev.map((i) =>
-//           i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
-//         );
-//       }
-//       return [...prev, { ...item, quantity: 1 }];
-//     });
-//   };
-
-//   const removeFromCart = (id: number) => {
-//     setCart((prev) => prev.filter((i) => i.id !== id));
-//   };
-
-//   const getCartCount = () => cart.reduce((sum, i) => sum + i.quantity, 0);
-
-//   const clearCart = () => setCart([]);
-
-//   const incrementQuantity = (id: number) => {
-//     setCart((prev) =>
-//       prev.map((i) =>
-//         i.id === id ? { ...i, quantity: i.quantity + 1 } : i
-//       )
-//     );
-//   };
-
-//   const decrementQuantity = (id: number) => {
-//     setCart((prev) =>
-//       prev.map((i) =>
-//         i.id === id ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i
-//       )
-//     );
-//   };
-
-//   return (
-//     <CartContext.Provider value={{ cart, addToCart, removeFromCart, getCartCount, clearCart, incrementQuantity, decrementQuantity }}>
-//       {children}
-//     </CartContext.Provider>
-//   );
-// };
-
-// export const useCart = () => {
-//   const ctx = useContext(CartContext);
-//   if (!ctx) throw new Error("useCart must be used within CartProvider");
-//   return ctx;
-// }; 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { useUser } from "@supabase/auth-helpers-react";
+// import { useUser } from "@supabase/auth-helpers-react";
+import { supabase as sb  } from "../../supabaseClient";
+
 
 export type CartItem = {
   id: number;
@@ -112,10 +14,12 @@ export type CartItem = {
 
 type CartContextType = {
   cart: CartItem[];
+  selectedIds: number[];
   addToCart: (item: Omit<CartItem, "quantity">) => void;
   removeFromCart: (id: number) => void;
   getCartCount: () => number;
   clearCart: () => void;
+  setSelectedIds: (ids: number[]) => void;
   incrementQuantity: (id: number) => void;
   decrementQuantity: (id: number) => void;
 };
@@ -124,7 +28,17 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const user = useUser();
+  const [user, setUser] = useState(null);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+
+  useEffect(() => {
+    // Fetch user from Supabase
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -152,15 +66,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     await supabase.from("carts").insert({
       user_id: user.id,
       product_id: item.id.toString(),
-      product_name: item.name,
-      price: item.price,
-      image: item.image,
       quantity: 1,
     });
   };
 
   const updateQuantityInDB = async (productId: number, quantity: number) => {
     if (!user) return;
+
     await supabase
       .from("carts")
       .update({ quantity })
@@ -169,6 +81,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const addToCart = (item: Omit<CartItem, "quantity">) => {
+    console.log("Adding to cart:", item);
     setCart((prev) => {
       const found = prev.find((i) => i.id === item.id);
       if (found) {
@@ -203,16 +116,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const incrementQuantity = (id: number) => {
-    setCart((prev) =>
-      prev.map((i) => {
+    console.log(cart);
+    setCart((prev) => {
+      return prev.map((i) => {
         if (i.id === id) {
           const newQty = i.quantity + 1;
           updateQuantityInDB(id, newQty);
           return { ...i, quantity: newQty };
         }
         return i;
-      })
-    );
+      });
+    });
   };
 
   const decrementQuantity = (id: number) => {
@@ -230,7 +144,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, getCartCount, clearCart, incrementQuantity, decrementQuantity }}
+      value={{ cart, addToCart, setSelectedIds, selectedIds, removeFromCart, getCartCount, clearCart, incrementQuantity, decrementQuantity }}
     >
       {children}
     </CartContext.Provider>

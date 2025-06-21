@@ -7,15 +7,21 @@ import Header from "@/components/Header";
 import { supabase } from "../../supabaseClient";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { districtData } from "../data/districtData";
+import { useProduct } from "@/hooks/useProducts";
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", phone: "", district: "", upazila: "", area: "" });
-  const [profile, setProfile] = useState({ full_name: "", email: "", phone: "", district: "", upazila: "", area: "" });
-  const { cart } = useCart();
+  const [profile, setProfile] = useState({ full_name: "", email: "", phone: "", district: "", upazila: "", area: "" });  const { cart, selectedIds} = useCart();
   const [showAuthDialog, setShowAuthDialog] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const {product, error, loading} =  useProduct(selectedIds);
+  console.log(selectedIds)
+    const total = product?.filter(p => selectedIds.includes(p.id)).reduce((sum, item) => {
+    const cartItem = cart.find(p => p.id === item.id);
+    return sum + (item.price * (cartItem?.quantity || 0));
+  }, 0) || 0;
+
 
   useEffect(() => {
     async function checkAuthAndProfile() {
@@ -73,9 +79,9 @@ const CheckoutPage = () => {
       <Dialog open>
         <DialogContent>
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">Sign In Required</h2>
+            <h2 className="mb-4 font-bold text-2xl">Sign In Required</h2>
             <p className="mb-6">You must be signed in to access the checkout. Please log in or create an account to continue.</p>
-            <Button className="w-full mb-2" onClick={() => navigate("/login")}>Sign In</Button>
+            <Button className="mb-2 w-full" onClick={() => navigate("/login")}>Sign In</Button>
             <Button className="w-full" variant="outline" onClick={() => navigate("/signup")}>Create Account</Button>
           </div>
         </DialogContent>
@@ -86,9 +92,9 @@ const CheckoutPage = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-taara-warm-white">
-        <div className="container mx-auto px-6 py-32 max-w-3xl">
-          <h1 className="text-4xl font-bold mb-8 text-taara-brown">Checkout</h1>
+      <div className="bg-taara-warm-white min-h-screen">
+        <div className="mx-auto px-6 py-32 max-w-3xl container">
+          <h1 className="mb-8 font-bold text-taara-brown text-4xl">Checkout</h1>
           <form onSubmit={handleSubmit} className="space-y-8">
             <Card>
               <CardHeader>
@@ -97,22 +103,22 @@ const CheckoutPage = () => {
               <CardContent className="space-y-4">
                 <div>
                   <label className="block mb-1 font-medium">Name</label>
-                  <input name="name" value={form.name} onChange={handleChange} required className="w-full border rounded px-3 py-2" />
+                  <input name="name" value={form.name} onChange={handleChange} required className="px-3 py-2 border rounded w-full" />
                   {isMissing("name") && <span className="text-red-500 text-xs">Required</span>}
                 </div>
                 <div>
                   <label className="block mb-1 font-medium">Email</label>
-                  <input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full border rounded px-3 py-2" />
+                  <input name="email" type="email" value={form.email} onChange={handleChange} required className="px-3 py-2 border rounded w-full" />
                   {isMissing("email") && <span className="text-red-500 text-xs">Required</span>}
                 </div>
                 <div>
                   <label className="block mb-1 font-medium">Phone</label>
-                  <input name="phone" value={form.phone} onChange={handleChange} required className="w-full border rounded px-3 py-2" />
+                  <input name="phone" value={form.phone} onChange={handleChange} required className="px-3 py-2 border rounded w-full" />
                   {isMissing("phone") && <span className="text-red-500 text-xs">Required</span>}
                 </div>
                 <div>
                   <label className="block mb-1 font-medium">District</label>
-                  <select name="district" value={form.district} onChange={handleChange} required className="w-full border rounded px-3 py-2">
+                  <select name="district" value={form.district} onChange={handleChange} required className="px-3 py-2 border rounded w-full">
                     <option value="">Select District</option>
                     {Object.keys(districtData).sort().map(d => <option key={d} value={d}>{d}</option>)}
                   </select>
@@ -120,7 +126,7 @@ const CheckoutPage = () => {
                 </div>
                 <div>
                   <label className="block mb-1 font-medium">Upazila</label>
-                  <select name="upazila" value={form.upazila} onChange={handleChange} required className="w-full border rounded px-3 py-2" disabled={!form.district}>
+                  <select name="upazila" value={form.upazila} onChange={handleChange} required className="px-3 py-2 border rounded w-full" disabled={!form.district}>
                     <option value="">Select Upazila</option>
                     {form.district && districtData[form.district]?.map(u => <option key={u} value={u}>{u}</option>)}
                   </select>
@@ -128,7 +134,7 @@ const CheckoutPage = () => {
                 </div>
                 <div>
                   <label className="block mb-1 font-medium">Area</label>
-                  <input name="area" value={form.area} onChange={handleChange} required className="w-full border rounded px-3 py-2" placeholder="Your area, village, or street" />
+                  <input name="area" value={form.area} onChange={handleChange} required className="px-3 py-2 border rounded w-full" placeholder="Your area, village, or street" />
                   {isMissing("area") && <span className="text-red-500 text-xs">Required</span>}
                 </div>
               </CardContent>
@@ -136,21 +142,30 @@ const CheckoutPage = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Order Summary</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {cart.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                      <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded" />
-                      <span>{item.name} x {item.quantity}</span>
-                    </div>
-                    <span className="font-bold text-taara-brown">৳{item.price * item.quantity}</span>
+              </CardHeader>              <CardContent>
+                {loading ? (
+                  <div className="flex justify-center items-center py-8">
+                    <div className="border-taara-brown border-b-2 rounded-full w-8 h-8 animate-spin"></div>
                   </div>
-                ))}
-                <div className="text-right text-xl font-bold mt-6">Total: <span className="text-taara-brown">৳{total}</span></div>
+                ) : (                  product.filter(p => selectedIds.includes(p.id)).map((item) => {
+                    const cartItem = cart.find(p => p.id === item.id);
+                    const quantity = cartItem?.quantity || 0;
+                    console.log(item);
+                    return (
+                      <div key={item.id} className="flex justify-between items-center mb-4">
+                        <div className="flex items-center gap-4">
+                          <img src={item?.image_url || item.image} alt={item.name} className="rounded w-12 h-12 object-cover" />
+                          <span>{item.name} x {quantity}</span>
+                        </div>
+                        <span className="font-bold text-taara-brown">৳{(item.price) * quantity}</span>
+                      </div>
+                    );
+                  })
+                )}
+                <div className="mt-6 font-bold text-xl text-right">Total: <span className="text-taara-brown">৳{total}</span></div>
               </CardContent>
               <CardFooter>
-                <Button type="submit" size="lg" className="w-full bg-taara-brown text-white">Place Order</Button>
+                <Button type="submit" size="lg" className="bg-taara-brown w-full text-white">Place Order</Button>
               </CardFooter>
             </Card>
           </form>

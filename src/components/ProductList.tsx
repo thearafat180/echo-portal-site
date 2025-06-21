@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useProducts } from '../hooks/useProducts'
 import { Button } from './ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { useCart } from "./CartContext"
+
 import { Link } from "react-router-dom"
-import { supabase } from '../supabaseClient'
+// import { supabase } from '../supabaseClient'
 
 function ProductCard({ product, addToCart }) {
   const [activeImage, setActiveImage] = useState(0);
@@ -15,12 +15,12 @@ function ProductCard({ product, addToCart }) {
   const desc = (product.short_desc || product.description || '').slice(0, 80) + ((product.short_desc || product.description || '').length > 80 ? '...' : '');
 
   return (
-    <div className="bg-white rounded-3xl shadow-md overflow-hidden max-w-xs mx-auto flex flex-col cursor-pointer transition-transform duration-200 hover:scale-105">
-      <Link to={`/product/${product.id}`} className="block group no-underline flex-1 h-full">
-        <div className="relative group">
+    <div className="flex flex-col bg-white shadow-md mx-auto rounded-3xl max-w-xs overflow-hidden hover:scale-105 transition-transform duration-200 cursor-pointer">
+      <Link to={`/product/${product.id}`} className="group block flex-1 h-full no-underline">
+        <div className="group relative">
           {/* Popular badge */}
           {product.popular && (
-            <span className="absolute top-3 left-3 bg-taara-golden text-taara-charcoal text-xs font-medium px-3 py-1 rounded-full z-10">
+            <span className="top-3 left-3 z-10 absolute bg-taara-golden px-3 py-1 rounded-full font-medium text-taara-charcoal text-xs">
               Popular
             </span>
           )}
@@ -28,11 +28,11 @@ function ProductCard({ product, addToCart }) {
           <img
             src={images[activeImage]}
             alt={product.name}
-            className="w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-95"
+            className="w-full object-cover aspect-square group-hover:scale-95 transition-transform duration-300"
           />
           {/* Thumbnails */}
           {images.length > 1 && (
-            <div className="absolute bottom-0 left-0 right-0 p-2 bg-black/40 backdrop-blur-sm flex gap-2 justify-center">
+            <div className="right-0 bottom-0 left-0 absolute flex justify-center gap-2 bg-black/40 backdrop-blur-sm p-2">
               {images.map((img, idx) => (
                 <button
                   key={idx}
@@ -50,14 +50,14 @@ function ProductCard({ product, addToCart }) {
           )}
         </div>
         {/* Info section */}
-        <div className="p-5 flex flex-col flex-1">
-          <div className="text-taara-brown font-medium mb-1">{product.category}</div>
-          <div className="font-display font-bold text-2xl mb-1">{product.name}</div>
-          <div className="text-taara-dark-brown/80 mb-4">{desc}</div>
-          <div className="flex items-center justify-between mt-auto">
-            <div className="text-xl font-bold text-taara-brown">৳{product.price}</div>
+        <div className="flex flex-col flex-1 p-5">
+          <div className="mb-1 font-medium text-taara-brown">{product.category}</div>
+          <div className="mb-1 font-display font-bold text-2xl">{product.name}</div>
+          <div className="mb-4 text-taara-dark-brown/80">{desc}</div>
+          <div className="flex justify-between items-center mt-auto">
+            <div className="font-bold text-taara-brown text-xl">৳{product.price}</div>
             <Button
-              className="bg-taara-brown hover:bg-taara-dark-brown text-white px-6 py-2"
+              className="bg-taara-brown hover:bg-taara-dark-brown px-6 py-2 text-white"
               onClick={e => {
                 e.stopPropagation();
                 e.preventDefault();
@@ -103,7 +103,7 @@ export function ProductList({ search = "" }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[200px]">
+      <div className="flex justify-center items-center min-h-[200px]">
         <span>Loading products...</span>
       </div>
     )
@@ -111,10 +111,10 @@ export function ProductList({ search = "" }) {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-[200px]">
+      <div className="flex justify-center items-center min-h-[200px]">
         <div className="text-center">
           <p className="text-red-500">Error loading products</p>
-          <p className="text-sm text-gray-500">{error.message}</p>
+          <p className="text-gray-500 text-sm">{error.message}</p>
         </div>
       </div>
     )
@@ -122,7 +122,7 @@ export function ProductList({ search = "" }) {
 
   return (
     <div className="space-y-6 px-2 md:px-4 lg:px-8 xl:px-16">
-      <div className="flex gap-4 justify-center my-8 flex-wrap">
+      <div className="flex flex-wrap justify-center gap-4 my-8">
         {categories.map(cat => (
           <button
             key={cat}
@@ -135,15 +135,15 @@ export function ProductList({ search = "" }) {
       </div>
       {/* Products Grid */}
       {filteredProducts && filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:-mx-6 xl:-mx-12">
+        <div className="gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:-mx-6 xl:-mx-12">
           {filteredProducts.map((product) => {
             return (
-              <ProductCard key={product.id} product={product} addToCart={addToCart} />
+               <ProductCard key={product.id} product={product} addToCart={addToCart} />
             )
           })}
         </div>
       ) : (
-        <div className="text-center py-12">
+        <div className="py-12 text-center">
           <p className="text-gray-500">No products available.</p>
         </div>
       )}

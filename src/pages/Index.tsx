@@ -1,22 +1,18 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Products from "@/components/Products";
 import MostPopular from "@/components/MostPopular";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-// import { TestSupabase } from "@/components/TestSupabase";
 
 const Index = () => {
   return (
     <div className="min-h-screen smooth-scroll">
-      <Header />
+      <Header /> 
       <Hero />
-      {/* <TestSupabase /> */}
       <MostPopular />
-      {/* <Products /> */}
       <About />
       <WhyChooseUs />
       <Testimonials />
