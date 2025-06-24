@@ -69,7 +69,12 @@ const CheckoutPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/payment", { state: { form, cart } });
+    // Calculate total here and pass to payment page
+    const total = product?.filter(p => selectedIds.includes(p.id)).reduce((sum, item) => {
+      const cartItem = cart.find(p => p.id === item.id);
+      return sum + (item.price * (cartItem?.quantity || 0));
+    }, 0) || 0;
+    navigate("/payment", { state: { form, cart, total } });
   };
 
   if (checkingAuth) return null;

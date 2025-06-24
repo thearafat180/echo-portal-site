@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "@/components/CartContext";
 import { supabase } from "../../supabaseClient";
+import { useIsMobile } from "../hooks/use-mobile";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +12,7 @@ const Header = () => {
   const navigate = useNavigate();
   const { getCartCount } = useCart();
   const [user, setUser] = useState(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const getUser = async () => {
@@ -26,6 +28,13 @@ const Header = () => {
       listener?.subscription.unsubscribe();
     };
   }, []);
+
+  // Auto-close mobile menu if switching to desktop
+  useEffect(() => {
+    if (!isMobile && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  }, [isMobile, isMenuOpen]);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -57,74 +66,80 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.label}
-                to={item.href}
-                className={`text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium ${
-                  location.pathname === item.href ? 'text-taara-brown border-b-2 border-taara-brown' : ''
-                }`}
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          {!isMobile && (
+            <nav className="flex items-center space-x-8">
+              {navItems.map((item) => (
+                <Link
+                  key={item.label}
+                  to={item.href}
+                  className={`text-taara-dark-brown hover:text-taara-brown transition-colors duration-300 font-medium ${
+                    location.pathname === item.href ? 'text-taara-brown border-b-2 border-taara-brown' : ''
+                  }`}
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          )}
 
           {/* CTA, Auth Buttons, Cart Icon */}
-          <div className="hidden md:flex items-center gap-2">
-            <a
-              href="https://facebook.com/taaracraft"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-4 py-2 rounded bg-taara-brown text-white font-medium shadow hover:bg-taara-dark-brown transition-colors duration-300"
-            >
-              Order on Facebook
-            </a>
-            {user ? (
-              <>
-                <Link to="/account">
-                  <Button className="ml-2 bg-taara-brown text-white p-2 rounded-full w-10 h-10 flex items-center justify-center" aria-label="Account">
-                    <User size={22} />
-                  </Button>
-                </Link>
-                <Button onClick={handleLogout} className="ml-2 bg-taara-brown text-white">Logout</Button>
-              </>
-            ) : (
-              <>
-                <Link to="/login">
-                  <Button className="ml-2 bg-taara-brown text-white">Login</Button>
-                </Link>
-                <Link to="/signup">
-                  <Button className="ml-2 bg-taara-brown text-white">Sign Up</Button>
-                </Link>
-              </>
-            )}
-            <button
-              className="relative ml-4"
-              onClick={() => navigate("/cart")}
-              aria-label="View cart"
-            >
-              <ShoppingCart size={28} className="text-taara-brown" />
-              <span className="absolute -top-2 -right-2 bg-taara-yellow text-xs text-white rounded-full px-2 py-0.5 font-bold shadow">
-                {getCartCount()}
-              </span>
-            </button>
-          </div>
+          {!isMobile && (
+            <div className="flex items-center gap-2">
+              <a
+                href="https://facebook.com/taaracraft"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 rounded bg-taara-brown text-white font-medium shadow hover:bg-taara-dark-brown transition-colors duration-300"
+              >
+                Order on Facebook
+              </a>
+              {user ? (
+                <>
+                  <Link to="/account">
+                    <Button className="ml-2 bg-taara-brown text-white p-2 rounded-full w-10 h-10 flex items-center justify-center" aria-label="Account">
+                      <User size={22} />
+                    </Button>
+                  </Link>
+                  <Button onClick={handleLogout} className="ml-2 bg-taara-brown text-white">Logout</Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">
+                    <Button className="ml-2 bg-taara-brown text-white">Login</Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button className="ml-2 bg-taara-brown text-white">Sign Up</Button>
+                  </Link>
+                </>
+              )}
+              <button
+                className="relative ml-4"
+                onClick={() => navigate("/cart")}
+                aria-label="View cart"
+              >
+                <ShoppingCart size={28} className="text-taara-brown" />
+                <span className="absolute -top-2 -right-2 bg-taara-yellow text-xs text-white rounded-full px-2 py-0.5 font-bold shadow">
+                  {getCartCount()}
+                </span>
+              </button>
+            </div>
+          )}
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {isMobile && (
+            <button
+              className="p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          )}
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-taara-golden">
+        {isMobile && isMenuOpen && (
+          <nav className="mt-4 pb-4 border-t border-taara-golden">
             <div className="flex flex-col space-y-3 pt-4">
               {navItems.map((item) => (
                 <Link
